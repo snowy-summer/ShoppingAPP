@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 final class InputNicknameView: UIView {
-    
-    private let nicknameTextField = UITextField()
+
+    private(set) var nicknameTextField = UITextField()
     private let lineView = UIView()
     private let explainLabel = UILabel()
     

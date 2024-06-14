@@ -10,26 +10,25 @@ import UIKit
 struct NicknameChecker {
     
     static func resultOfNickname(name: String) -> NicknameStatus {
+            
+        let nicknameType = NicknameStatus.success
         
-        var nicknameType = NicknameStatus.sucess
+        if name.count < 2 {
+            return .underTheCount
+        } else if name.count >= 10 {
+            return .overTheCount
+        }
         
-        if name.count >= 2 && name.count < 10 {
+        let specialChar: Set = ["@", "#", "$", "%"]
         
-            if name.contains("@") ||
-                name.contains("#") ||
-                name.contains("$") ||
-                name.contains("%") {
-                
-                nicknameType = .containSpecial
+        for value in specialChar {
+            if name.contains(value) {
+                return .containSpecial(value)
             }
-            
-            if name.rangeOfCharacter(from: .decimalDigits) != nil {
-                nicknameType = .containNumber
-            }
-            
-        } else {
-            
-            nicknameType = .overTheCount
+        }
+        
+        if name.rangeOfCharacter(from: .decimalDigits) != nil {
+            return .containNumber
         }
         
         return nicknameType

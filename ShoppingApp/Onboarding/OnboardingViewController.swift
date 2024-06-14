@@ -21,6 +21,7 @@ final class OnboardingViewController: UIViewController {
         
         configureHierarchy()
         configureUI()
+        setupGestureAndButtonActions()
         configureLayout()
     
     }
@@ -45,34 +46,37 @@ extension OnboardingViewController {
         
         titleLabel.text = "MeaningOut"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .key
+        titleLabel.textColor = .point
         titleLabel.font = .systemFont(ofSize: 36, weight: .black)
         
         backImageView.image = .launch
         backImageView.contentMode = .scaleAspectFit
         
+    }
+    
+    private func setupGestureAndButtonActions() {
+        
         startButton.addTarget(self,
                               action: #selector(startButtonClicked),
                               for: .touchUpInside)
-        
     }
     
     private func configureLayout() {
         
         backImageView.snp.makeConstraints { make in
-            make.center.equalTo(view.snp.center)
-            make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(view.snp.height).multipliedBy(0.5)
+            make.center.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview().inset(20)
+            make.height.equalToSuperview().multipliedBy(0.5)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(backImageView.snp.top).offset(20)
-            make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.bottom.equalTo(backImageView.snp.top).offset(-20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(20)
         }
         
         startButton.snp.makeConstraints { make in
             
-            make.bottom.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(32)
+            make.bottom.directionalHorizontalEdges.equalToSuperview().inset(40)
             make.height.equalTo(44)
             
         }

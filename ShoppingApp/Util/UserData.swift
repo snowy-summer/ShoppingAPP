@@ -19,13 +19,18 @@ struct UserData {
            }
        }
     
-    static func saveName(value: String) {
-        UserDefaults.standard.setValue(value, forKey: "profile")
+    static var nickname: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "nickname")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "nickname")
+        }
     }
     
-    
     static func resetData() {
-        UserDefaults.standard.setValue("대장", forKey: "UserName")
-        UserDefaults.standard.removeObject(forKey: "다마고치")
+        
+        UserDefaults.standard.removeObject(forKey: "profile")
+        UserDefaults.standard.removeObject(forKey: "nickname")
     }
 }

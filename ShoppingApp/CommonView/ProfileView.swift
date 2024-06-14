@@ -17,7 +17,7 @@ final class ProfileView: UIView {
         super.init(frame: frame)
         
         configureHierarchy()
-        updateUI(type: .thumbnail)
+        updateUI(by: .thumbnail)
         configureLayout()
     }
     
@@ -33,19 +33,24 @@ final class ProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateUI(type: ProfileType) {
+    func updateUI(by type: ProfileType) {
         profileImageView.layer.borderWidth = type.borderWidth
         profileImageView.layer.borderColor = type.color
+        profileImageView.alpha = type.alpha
         
-        cameraContainerView.backgroundColor = .key
+        cameraContainerView.backgroundColor = .point
         
         if type != .thumbnail {
             cameraContainerView.isHidden = true
         }
     }
     
-    func updateProfileImage(image: UIImage?) {
-        profileImageView.image = image
+    func updateProfileImage(named: String?) {
+        
+        guard let imageString = named else { return }
+        
+//        UserData.profileImageString = imageString
+        profileImageView.image = UIImage(named: imageString)
     }
 }
 

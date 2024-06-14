@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 final class ProfileSettingViewController: UIViewController {
@@ -14,23 +15,65 @@ final class ProfileSettingViewController: UIViewController {
     private let inputNicknameView = InputNicknameView()
     private let completeButton = CapsuledButton(title: "완료")
     
+    private var profileViewModel = ProFileViewModel()
+    private var cancellables = Set<AnyCancellable>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-
+        
         configureNavigationBar()
         configureHierarchy()
         configureProfileImage()
+        setupGestureAndButtonActions()
         configureLayout()
+        binding()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureProfileImage()
     }
 }
 
+//MARK: - Method
+
 extension ProfileSettingViewController {
     
+    private func binding() {
+        
+        profileViewModel.$imageString
+            .sink { [weak self] newValue in
+                guard let self = self else { return }
+                
+                profileView.updateProfileImage(named: newValue)
+            }.store(in: &cancellables)
+        
+    }
+    
+    @objc private func pushSelectProfileVC() {
+        navigationController?.pushViewController(SelectProfileViewController(),
+                                                 animated: true)
+    }
+    
     @objc private func popVC() {
+        
+        UserData.resetData()
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func completeButtonClicked() {
+        
+        guard let nickname = inputNicknameView.nicknameTextField.text else { return }
+        
+        if NicknameChecker.resultOfNickname(name: nickname) == NicknameStatus.success {
+            profileViewModel.updateNickname(nickname)
+            navigationController?.pushViewController(MainViewController(),
+                                                     animated: true)
+        }
     }
 }
 
@@ -41,7 +84,6 @@ extension ProfileSettingViewController {
     private func configureNavigationBar() {
         
         navigationItem.title = "PROFILE SETTING"
-        navigationController?.navigationBar.shadowImage = UIImage(resource: .launch)
         
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,
@@ -59,17 +101,29 @@ extension ProfileSettingViewController {
         view.addSubview(completeButton)
     }
     
+    private func setupGestureAndButtonActions() {
+        
+        let tapProfileView = UITapGestureRecognizer(target: self,
+                                                    action: #selector(pushSelectProfileVC))
+        profileView.addGestureRecognizer(tapProfileView)
+        
+        completeButton.addTarget(self,
+                                 action: #selector(completeButtonClicked),
+                                 for: .touchUpInside)
+    }
+    
     private func configureProfileImage() {
         
         guard let imageString = UserData.profileImageString else {
             
-            if let randomImageString = Profile.allCases.randomElement() {
-                profileView.updateProfileImage(image: UIImage(named: randomImageString.rawValue))
+            if let randomImageCase = Profile.allCases.randomElement() {
+                
+                profileViewModel.updateImageString(randomImageCase.rawValue)
             }
             return
         }
         
-        profileView.updateProfileImage(image: UIImage(named: imageString))
+        profileViewModel.updateImageString(imageString)
     }
     
     private func configureLayout() {
@@ -91,7 +145,7 @@ extension ProfileSettingViewController {
             make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(44)
         }
-
+        
     }
     
 }

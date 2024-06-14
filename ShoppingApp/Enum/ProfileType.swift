@@ -15,7 +15,7 @@ enum ProfileType {
     var color: CGColor {
         switch self {
         case .selected,.thumbnail:
-            return UIColor.key.cgColor
+            return UIColor.point.cgColor
         case .unselected:
             return UIColor.icon.cgColor
         }

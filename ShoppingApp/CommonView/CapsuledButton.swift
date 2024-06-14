@@ -13,7 +13,7 @@ final class CapsuledButton: UIButton {
         super.init(frame: .zero)
         
         configuration = configure(title: title)
-        tintColor = .key
+        tintColor = .point
         
     }
     

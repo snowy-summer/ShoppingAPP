@@ -7,35 +7,36 @@
 
 import UIKit
 
-enum NicknameStatus {
-    case sucess
+enum NicknameStatus: Equatable {
+    case success
     case containNumber
     case overTheCount
-    case containSpecial
+    case underTheCount
+    case containSpecial(String)
     
     var script: String {
         switch self {
-        case .sucess:
+        case .success:
             return "사용할 수 있는 닉네임이에요"
         case .containNumber:
             return "닉네임에 숫자는 포함할 수 없어요"
-        case .overTheCount:
+        case .overTheCount, .underTheCount:
             return "2글자 이상 10글자 미만으로 설정해주세요"
-        case .containSpecial:
-            return "닉네임에 @,#,$,%는 포함할 수 없어요"
+        case .containSpecial(let value):
+            return "닉네임에 \(value)는 포함할 수 없어요"
         }
     }
     
     var color: UIColor {
         switch self {
-        case .sucess:
+        case .success:
             return .black
         case .containNumber:
-            return .key
-        case .overTheCount:
-            return .key
+            return .point
+        case .overTheCount, .underTheCount:
+            return .point
         case .containSpecial:
-            return .key
+            return .point
         }
     }
 }
