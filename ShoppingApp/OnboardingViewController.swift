@@ -12,7 +12,7 @@ final class OnboardingViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let backImageView = UIImageView()
-    private let startButton = UIButton()
+    private let startButton = CapsuledButton(title: "시작하기")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,12 @@ final class OnboardingViewController: UIViewController {
         configureHierarchy()
         configureUI()
         configureLayout()
+    
+    }
+    
+    @objc private func startButtonClicked() {
+        navigationController?.pushViewController(ProfileSettingViewController(),
+                                                 animated: true)
     }
     
 }
@@ -30,8 +36,8 @@ extension OnboardingViewController {
     
     private func configureHierarchy() {
         
-        view.addSubview(titleLabel)
         view.addSubview(backImageView)
+        view.addSubview(titleLabel)
         view.addSubview(startButton)
     }
     
@@ -45,33 +51,32 @@ extension OnboardingViewController {
         backImageView.image = .launch
         backImageView.contentMode = .scaleAspectFit
         
-        startButton.setTitle("시작하기", for: .normal)
-        var configuration = UIButton.Configuration.filled()
-        configuration.cornerStyle = .capsule
-        startButton.configuration = configuration
-        startButton.tintColor = .key
+        startButton.addTarget(self,
+                              action: #selector(startButtonClicked),
+                              for: .touchUpInside)
         
     }
     
     private func configureLayout() {
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top).offset(100)
+        backImageView.snp.makeConstraints { make in
+            make.center.equalTo(view.snp.center)
             make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(view.snp.height).multipliedBy(0.5)
         }
         
-        backImageView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
-            make.directionalHorizontalEdges.equalTo(view.snp.directionalHorizontalEdges).inset(20)
-            make.height.equalTo(view.snp.height).multipliedBy(0.5)
+        titleLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(backImageView.snp.top).offset(20)
+            make.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
         
         startButton.snp.makeConstraints { make in
             
             make.bottom.directionalHorizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(32)
+            make.height.equalTo(44)
             
         }
-       
+
     }
     
 }

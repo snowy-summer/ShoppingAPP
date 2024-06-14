@@ -16,6 +16,17 @@
 		6B18195B2C1B0B78009B0236 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B18195A2C1B0B78009B0236 /* Kingfisher */; };
 		6B18195E2C1B0B85009B0236 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6B18195D2C1B0B85009B0236 /* SnapKit */; };
 		6B1819612C1B0BAC009B0236 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B1819602C1B0BAC009B0236 /* IQKeyboardManagerSwift */; };
+		6B1819662C1B220B009B0236 /* CapsuledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819652C1B220B009B0236 /* CapsuledButton.swift */; };
+		6B1819682C1B2388009B0236 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819672C1B2387009B0236 /* ProfileSettingViewController.swift */; };
+		6B18196B2C1B261C009B0236 /* IconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18196A2C1B261C009B0236 /* IconType.swift */; };
+		6B18196D2C1B271C009B0236 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18196C2C1B271C009B0236 /* ProfileType.swift */; };
+		6B18196F2C1B33FF009B0236 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18196E2C1B33FF009B0236 /* IconView.swift */; };
+		6B1819712C1B39A1009B0236 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819702C1B39A1009B0236 /* ProfileView.swift */; };
+		6B1819732C1B39F8009B0236 /* InputNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819722C1B39F8009B0236 /* InputNicknameView.swift */; };
+		6B1819752C1B45D1009B0236 /* FontOfDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819742C1B45D1009B0236 /* FontOfDesign.swift */; };
+		6B1819782C1BCA2C009B0236 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819772C1BCA2C009B0236 /* UserData.swift */; };
+		6B18197A2C1BCE83009B0236 /* NicknameChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819792C1BCE83009B0236 /* NicknameChecker.swift */; };
+		6B18197C2C1BDB1A009B0236 /* NicknameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18197B2C1BDB1A009B0236 /* NicknameStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +37,17 @@
 		6B18194B2C1AEB10009B0236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B18194E2C1AEB10009B0236 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B1819502C1AEB10009B0236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B1819652C1B220B009B0236 /* CapsuledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuledButton.swift; sourceTree = "<group>"; };
+		6B1819672C1B2387009B0236 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		6B18196A2C1B261C009B0236 /* IconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconType.swift; sourceTree = "<group>"; };
+		6B18196C2C1B271C009B0236 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
+		6B18196E2C1B33FF009B0236 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		6B1819702C1B39A1009B0236 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		6B1819722C1B39F8009B0236 /* InputNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNicknameView.swift; sourceTree = "<group>"; };
+		6B1819742C1B45D1009B0236 /* FontOfDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontOfDesign.swift; sourceTree = "<group>"; };
+		6B1819772C1BCA2C009B0236 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		6B1819792C1BCE83009B0236 /* NicknameChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameChecker.swift; sourceTree = "<group>"; };
+		6B18197B2C1BDB1A009B0236 /* NicknameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,11 +87,46 @@
 				6B1819422C1AEB0F009B0236 /* AppDelegate.swift */,
 				6B1819442C1AEB0F009B0236 /* SceneDelegate.swift */,
 				6B1819462C1AEB0F009B0236 /* OnboardingViewController.swift */,
+				6B1819672C1B2387009B0236 /* ProfileSettingViewController.swift */,
+				6B1819762C1BC9EC009B0236 /* Util */,
+				6B1819692C1B260B009B0236 /* Enum */,
+				6B1819642C1B21F7009B0236 /* CommonView */,
 				6B18194B2C1AEB10009B0236 /* Assets.xcassets */,
 				6B18194D2C1AEB10009B0236 /* LaunchScreen.storyboard */,
 				6B1819502C1AEB10009B0236 /* Info.plist */,
 			);
 			path = ShoppingApp;
+			sourceTree = "<group>";
+		};
+		6B1819642C1B21F7009B0236 /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				6B1819652C1B220B009B0236 /* CapsuledButton.swift */,
+				6B1819702C1B39A1009B0236 /* ProfileView.swift */,
+				6B18196E2C1B33FF009B0236 /* IconView.swift */,
+				6B1819722C1B39F8009B0236 /* InputNicknameView.swift */,
+			);
+			path = CommonView;
+			sourceTree = "<group>";
+		};
+		6B1819692C1B260B009B0236 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				6B18196A2C1B261C009B0236 /* IconType.swift */,
+				6B18197B2C1BDB1A009B0236 /* NicknameStatus.swift */,
+				6B18196C2C1B271C009B0236 /* ProfileType.swift */,
+				6B1819742C1B45D1009B0236 /* FontOfDesign.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		6B1819762C1BC9EC009B0236 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				6B1819772C1BCA2C009B0236 /* UserData.swift */,
+				6B1819792C1BCE83009B0236 /* NicknameChecker.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +211,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B1819752C1B45D1009B0236 /* FontOfDesign.swift in Sources */,
+				6B18196B2C1B261C009B0236 /* IconType.swift in Sources */,
+				6B18197A2C1BCE83009B0236 /* NicknameChecker.swift in Sources */,
+				6B18197C2C1BDB1A009B0236 /* NicknameStatus.swift in Sources */,
+				6B1819712C1B39A1009B0236 /* ProfileView.swift in Sources */,
+				6B1819662C1B220B009B0236 /* CapsuledButton.swift in Sources */,
 				6B1819472C1AEB0F009B0236 /* OnboardingViewController.swift in Sources */,
+				6B18196D2C1B271C009B0236 /* ProfileType.swift in Sources */,
+				6B1819782C1BCA2C009B0236 /* UserData.swift in Sources */,
+				6B1819682C1B2388009B0236 /* ProfileSettingViewController.swift in Sources */,
+				6B18196F2C1B33FF009B0236 /* IconView.swift in Sources */,
 				6B1819432C1AEB0F009B0236 /* AppDelegate.swift in Sources */,
 				6B1819452C1AEB0F009B0236 /* SceneDelegate.swift in Sources */,
+				6B1819732C1B39F8009B0236 /* InputNicknameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
