@@ -10,17 +10,25 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol RecordListTableViewCellDelegate: AnyObject {
+    
+    func deleteList(at index: IndexPath)
+    
+}
+
 final class RecordListTableViewCell: UITableViewCell {
     
     private let recordIconImageView = UIImageView()
     private let nameLabel = UILabel()
     private let deleteButton = UIButton()
+    weak var delegate: RecordListTableViewCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureHierarchy()
         configureUI()
+        configureGestureAndButtonActions()
         configureLayout()
     }
     
@@ -32,9 +40,24 @@ final class RecordListTableViewCell: UITableViewCell {
 //MARK: - Method
 
 extension RecordListTableViewCell {
+    
+    func getIndexPath() -> IndexPath? {
+        guard let tableView = self.superview as? UITableView else {
+            return nil
+        }
+        
+        return tableView.indexPath(for: self)
+    }
 
     func updateContent(text: String) {
         nameLabel.text = text
+    }
+    
+    @objc private func deleteList() {
+        
+        guard let indexPath = getIndexPath() else { return }
+        
+        delegate?.deleteList(at: indexPath)
     }
 }
 
@@ -52,14 +75,18 @@ extension RecordListTableViewCell {
     private func configureUI() {
         
         recordIconImageView.image = UIImage(systemName: IconType.searchRecordIcon.iconString)
-        recordIconImageView.tintColor = .black
+        recordIconImageView.tintColor = .title
         
         deleteButton.titleLabel?.text = .none
         deleteButton.setImage(UIImage(systemName: IconType.deleteIcon.iconString), for: .normal)
-        deleteButton.tintColor = .black
+        deleteButton.tintColor = .title
     }
     
-    private func setupGestureAndButtonActions() {
+    private func configureGestureAndButtonActions() {
+        
+        deleteButton.addTarget(self,
+                               action: #selector(deleteList),
+                               for: .touchUpInside)
         
     }
     

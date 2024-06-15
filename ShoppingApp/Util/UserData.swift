@@ -7,19 +7,21 @@
 
 import Foundation
 
-
-struct UserData {
+final class UserData {
     
-    static var profileImageString: String? {
-           get {
-               return UserDefaults.standard.string(forKey: "profile")
-           }
-           set {
-               UserDefaults.standard.setValue(newValue, forKey: "profile")
-           }
-       }
+    private init() { }
+    static let data = UserData()
     
-    static var nickname: String? {
+    var profileImageString: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "profile")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "profile")
+        }
+    }
+    
+    var nickname: String? {
         get {
             return UserDefaults.standard.string(forKey: "nickname")
         }
@@ -28,9 +30,29 @@ struct UserData {
         }
     }
     
-    static func resetData() {
+    var searchRecordList: [RecordList]? {
+        get {
+            
+            guard let recordData = UserDefaults.standard.data(forKey: "searchRecord") else { return nil}
+            let data = try? JSONDecoder().decode([RecordList].self,
+                                                 from: recordData )
+            return data
+        }
+        set {
+           
+              let data = try? JSONEncoder().encode(newValue)
+                UserDefaults.standard.setValue(data, forKey: "searchRecord")
+            }
+        }
         
-        UserDefaults.standard.removeObject(forKey: "profile")
-        UserDefaults.standard.removeObject(forKey: "nickname")
+        func deleteSearchRecordList() {
+            UserDefaults.standard.removeObject(forKey: "searchRecord")
+        }
+        
+        func resetData() {
+            
+            UserDefaults.standard.removeObject(forKey: "profile")
+            UserDefaults.standard.removeObject(forKey: "nickname")
+            UserDefaults.standard.removeObject(forKey: "searchRecord")
+        }
     }
-}

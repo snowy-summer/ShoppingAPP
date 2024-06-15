@@ -61,7 +61,7 @@ extension ProfileSettingViewController {
     
     @objc private func popVC() {
         
-        UserData.resetData()
+        UserData.data.resetData()
         navigationController?.popViewController(animated: true)
     }
     
@@ -118,7 +118,7 @@ extension ProfileSettingViewController {
     
     private func configureProfileImage() {
         
-        guard let imageString = UserData.profileImageString else {
+        guard let imageString = UserData.data.profileImageString else {
             
             if let randomImageCase = Profile.allCases.randomElement() {
                 

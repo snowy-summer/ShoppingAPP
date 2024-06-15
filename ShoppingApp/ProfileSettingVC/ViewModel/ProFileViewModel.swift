@@ -10,16 +10,16 @@ import Combine
 
 final class ProFileViewModel: ObservableObject {
     
-    @Published private(set) var imageString: String? = UserData.profileImageString
-    @Published private(set) var nickname: String? = UserData.nickname
+    @Published private(set) var imageString: String? = UserData.data.profileImageString
+    @Published private(set) var nickname: String? = UserData.data.nickname
     
     func updateImageString(_ newValue: String?) {
-            imageString = newValue
-            UserData.profileImageString = newValue
+        imageString = newValue
+        UserData.data.profileImageString = newValue
     }
     
     func updateNickname(_ newValue: String) {
         nickname = newValue
-        UserData.nickname = newValue
+        UserData.data.nickname = newValue
     }
 }

@@ -15,6 +15,7 @@ final class MainViewController: UIViewController {
     private let recordListTableView = UITableView()
     private let emptyImageView = UIImageView()
     private let listStatusLabel = UILabel()
+    private let recordListHeaderView = RecordListHeaderView()
     
     private let mainViewModel = MainViewModel()
     private var cancellables = Set<AnyCancellable>()
@@ -33,14 +34,17 @@ final class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UISearchBarDelegate {
+//MARK: - Method
+
+extension MainViewController {
     
     private func binding() {
         
         mainViewModel.$list
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newValue in
-                guard let self = self else { return }
+                guard let self = self,
+                      let newValue = newValue else { return }
                 
                 if newValue.isEmpty {
                     emptyImageView.isHidden = false
@@ -48,16 +52,21 @@ extension MainViewController: UISearchBarDelegate {
                 } else {
                     emptyImageView.isHidden = true
                     listStatusLabel.isHidden = true
-                    
-                    recordListTableView.reloadData()
                 }
+                recordListTableView.reloadData()
             }.store(in: &cancellables)
     }
+    
+}
+
+//MARK: - UISearchBarDelegate
+
+extension MainViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
         guard let text = searchBar.text else { return }
-        
+        searchBar.text = .none
         mainViewModel.updateRecordList(text: text)
         
     }
@@ -70,7 +79,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return mainViewModel.list.count
+        return mainViewModel.list?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView,
@@ -78,15 +87,35 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordListTableViewCell.identifier,
                                                        for: indexPath) as? RecordListTableViewCell else { return RecordListTableViewCell() }
         
-        let data = mainViewModel.list[indexPath.row]
-        cell.updateContent(text: data.name)
+        cell.delegate = self
         
+        if let data = mainViewModel.list?[indexPath.row] {
+            cell.updateContent(text: data.name)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         
+        navigationController?.pushViewController(SearchResultViewController(), animated: true)
+    }
+    
+}
+
+//MARK: - RecordListTableViewCell, RecordListHeaderView Delegate
+
+extension MainViewController: RecordListTableViewCellDelegate,
+                              RecordListHeaderViewDelegate {
+    
+    func deleteListAll() {
+        
+        mainViewModel.deleteListAll()
+    }
+    
+    func deleteList(at indexPath: IndexPath) {
+        
+        mainViewModel.deleteRecordList(at: indexPath.row)
     }
     
 }
@@ -98,16 +127,26 @@ extension MainViewController {
     private func configureNavigationBar() {
         
         navigationItem.searchController = searchBarController
+        configureSearchBarController()
         
-        searchBarController.searchBar.placeholder = "브랜드 상품등을 입력하세요"
+        guard let nickname = UserData.data.nickname else { return }
+        navigationItem.title = "\(nickname)'s MEANING OUT"
+    }
+    
+    private func configureSearchBarController() {
+        
+        searchBarController.searchBar.placeholder = "브랜드, 상품 등을 입력하세요"
         searchBarController.searchBar.delegate = self
         
-        guard let nickname = UserData.nickname else { return }
-        navigationItem.title = "\(nickname)'s MEANING OUT"
+        searchBarController.searchBar.autocorrectionType = .no
+        searchBarController.searchBar.spellCheckingType = .no
+        searchBarController.searchBar.tintColor = .title
+     
     }
     
     private func configureHierarchy() {
         
+        view.addSubview(recordListHeaderView)
         view.addSubview(recordListTableView)
         view.addSubview(emptyImageView)
         view.addSubview(listStatusLabel)
@@ -115,8 +154,11 @@ extension MainViewController {
     
     private func configureUI() {
         
+        recordListHeaderView.delegate = self
+        
         emptyImageView.image = UIImage(resource: .empty)
         emptyImageView.contentMode = .scaleAspectFit
+        emptyImageView.backgroundColor = .white
         
         listStatusLabel.text = "최근 검색어가 없어요"
         listStatusLabel.font = .systemFont(ofSize: 16, weight: .heavy)
@@ -135,12 +177,19 @@ extension MainViewController {
     
     private func configureLayout() {
         
+        recordListHeaderView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.directionalHorizontalEdges.equalToSuperview()
+        }
+        
         recordListTableView.snp.makeConstraints { make in
-            make.directionalEdges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(recordListHeaderView.snp.bottom)
+            make.directionalHorizontalEdges.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         emptyImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.top.equalTo(recordListHeaderView.snp.top)
             make.directionalHorizontalEdges.equalToSuperview().inset(20)
             make.height.equalToSuperview().multipliedBy(0.5)
         }

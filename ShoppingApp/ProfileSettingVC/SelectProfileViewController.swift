@@ -27,7 +27,7 @@ final class SelectProfileViewController: UIViewController {
         configureHierarchy()
         configureCollectionView()
         configureLayout()
-        profileThumbnailView.updateProfileImage(named: UserData.profileImageString)
+        profileThumbnailView.updateProfileImage(named: UserData.data.profileImageString)
         binding()
     }
     

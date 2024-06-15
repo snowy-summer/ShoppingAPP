@@ -21,7 +21,7 @@ final class OnboardingViewController: UIViewController {
         
         configureHierarchy()
         configureUI()
-        setupGestureAndButtonActions()
+        configureGestureAndButtonActions()
         configureLayout()
     
     }
@@ -54,7 +54,7 @@ extension OnboardingViewController {
         
     }
     
-    private func setupGestureAndButtonActions() {
+    private func configureGestureAndButtonActions() {
         
         startButton.addTarget(self,
                               action: #selector(startButtonClicked),

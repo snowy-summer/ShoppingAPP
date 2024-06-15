@@ -37,7 +37,7 @@ extension ImageCollectionViewCell {
     func updateProfileImage(index: Int) {
         let imageString = Profile.allCases[index].rawValue
         
-        if imageString == UserData.profileImageString { changeType(type: .selected) }
+        if imageString == UserData.data.profileImageString { changeType(type: .selected) }
         
         profileView.updateProfileImage(named: imageString)
     }
