@@ -56,7 +56,7 @@ extension ImageCollectionViewCell {
     private func configureLayout() {
         
         profileView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.snp.edges)
+            make.directionalEdges.equalTo(contentView.snp.directionalEdges)
         }
     }
 }

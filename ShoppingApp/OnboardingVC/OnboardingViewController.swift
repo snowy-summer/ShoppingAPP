@@ -75,8 +75,8 @@ extension OnboardingViewController {
         }
         
         startButton.snp.makeConstraints { make in
-            
-            make.bottom.directionalHorizontalEdges.equalToSuperview().inset(40)
+            make.top.equalTo(backImageView.snp.bottom).offset(20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(40)
             make.height.equalTo(44)
             
         }

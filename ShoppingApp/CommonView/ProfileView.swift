@@ -11,7 +11,7 @@ import SnapKit
 final class ProfileView: UIView {
     
     private let profileImageView = UIImageView()
-    private let cameraContainerView = IconView(icon: .cameraIcon)
+    private let cameraButton = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,6 @@ final class ProfileView: UIView {
         
         profileImageView.layer.cornerRadius = self.frame.width / 2
         profileImageView.clipsToBounds = true
-        cameraContainerView.layer.cornerRadius = cameraContainerView.layer.frame.width / 2
     }
     
     required init?(coder: NSCoder) {
@@ -38,10 +37,10 @@ final class ProfileView: UIView {
         profileImageView.layer.borderColor = type.color
         profileImageView.alpha = type.alpha
         
-        cameraContainerView.backgroundColor = .point
+        configureButton()
         
         if type != .thumbnail {
-            cameraContainerView.isHidden = true
+            cameraButton.isHidden = true
         }
     }
     
@@ -49,7 +48,6 @@ final class ProfileView: UIView {
         
         guard let imageString = named else { return }
         
-//        UserData.profileImageString = imageString
         profileImageView.image = UIImage(named: imageString)
     }
 }
@@ -59,18 +57,30 @@ final class ProfileView: UIView {
 extension ProfileView {
     
     private func configureHierarchy() {
+        
         addSubview(profileImageView)
-        addSubview(cameraContainerView)
+        addSubview(cameraButton)
+    }
+    
+    private func configureButton() {
         
+        cameraButton.tintColor = .point
         
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: IconType.cameraIcon.iconString)
+        configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 16)
+        configuration.cornerStyle = .capsule
+        
+        cameraButton.configuration = configuration
     }
     
     private func configureLayout() {
+        
         profileImageView.snp.makeConstraints { make in
             make.directionalEdges.equalToSuperview()
         }
         
-        cameraContainerView.snp.makeConstraints { make in
+        cameraButton.snp.makeConstraints { make in
             make.size.equalToSuperview().multipliedBy(0.3)
             make.bottom.trailing.equalToSuperview().inset(profileImageView.frame.width / 4)
         }

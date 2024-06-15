@@ -44,7 +44,6 @@ extension InputNicknameView {
     
 }
 
-
 //MARK: - Configuration
 
 extension InputNicknameView {
@@ -65,10 +64,13 @@ extension InputNicknameView {
                                     action: #selector(textFieldDIdChnage),
                                     for: .editingChanged)
         
+        // textViewLeftView로 여백을 줄수 있음
+        
         lineView.backgroundColor = .icon
     }
     
     private func configureLayout() {
+        
         nicknameTextField.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.directionalHorizontalEdges.equalTo(self.snp.directionalHorizontalEdges).inset(20)

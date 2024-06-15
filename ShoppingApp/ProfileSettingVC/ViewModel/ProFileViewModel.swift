@@ -19,7 +19,7 @@ final class ProFileViewModel: ObservableObject {
     }
     
     func updateNickname(_ newValue: String) {
-        nickname = nickname
-        UserData.nickname = nickname
+        nickname = newValue
+        UserData.nickname = newValue
     }
 }

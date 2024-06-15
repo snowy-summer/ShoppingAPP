@@ -71,8 +71,12 @@ extension ProfileSettingViewController {
         
         if NicknameChecker.resultOfNickname(name: nickname) == NicknameStatus.success {
             profileViewModel.updateNickname(nickname)
-            navigationController?.pushViewController(MainViewController(),
-                                                     animated: true)
+            
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            sceneDelegate?.window?.rootViewController = TabBarController()
+            sceneDelegate?.window?.makeKeyAndVisible()
+            
         }
     }
 }
