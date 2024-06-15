@@ -59,14 +59,14 @@ extension RecordListHeaderView {
     private func configureUI() {
         
         titleLabel.text = "최근 검색"
-        titleLabel.font = .systemFont(ofSize: 16, weight: .heavy)
+        titleLabel.font = FontType.boldTitle.font
         
         allDeleteButton.setTitle("전체 삭제",
                                  for: .normal)
     
         allDeleteButton.setTitleColor(.point,
                                       for: .normal)
-        allDeleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        allDeleteButton.titleLabel?.font = FontType.body.font
         
     }
     

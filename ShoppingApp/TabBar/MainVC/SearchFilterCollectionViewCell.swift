@@ -25,6 +25,13 @@ final class SearchFilterCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        fileterButton.layer.cornerRadius = bounds.height / 2
+        fileterButton.layer.masksToBounds = true
+    }
+    
 }
 
 //MARK: - Method
@@ -33,11 +40,16 @@ extension SearchFilterCollectionViewCell {
     
     func updateContent(name: String,
                        type: SearchFilterButtonType) {
+      
+        var buttonConfiguration = UIButton.Configuration.filled()
         
-        fileterButton.setTitle(name,
-                               for: .normal)
-        fileterButton.setTitleColor(type.titleColor,
-                                    for: .normal)
+        var titleContainer = AttributeContainer()
+        titleContainer.font = FontType.normaltitle.font
+        titleContainer.foregroundColor = type.titleColor
+        
+        buttonConfiguration.attributedTitle = AttributedString(name, attributes: titleContainer)
+        
+        fileterButton.configuration = buttonConfiguration
         fileterButton.tintColor = type.backgroundColor
         fileterButton.layer.borderColor = type.borderColor.cgColor
     }
@@ -55,11 +67,6 @@ extension SearchFilterCollectionViewCell {
     
     private func configureUI() {
         
-        var configuration = UIButton.Configuration.filled()
-        
-        configuration.cornerStyle = .capsule
-        fileterButton.configuration = configuration
-        fileterButton.tintColor = .background
         fileterButton.layer.borderWidth = 1
         fileterButton.layer.borderColor = SearchFilterButtonType.notSelcted.borderColor.cgColor
     }
@@ -71,7 +78,8 @@ extension SearchFilterCollectionViewCell {
     private func configureLayout() {
         
         fileterButton.snp.makeConstraints { make in
-            make.directionalEdges.equalToSuperview()
+            make.verticalEdges.equalToSuperview()
+            make.directionalHorizontalEdges.equalToSuperview()
         }
     
     }

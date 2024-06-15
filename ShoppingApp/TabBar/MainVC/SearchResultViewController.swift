@@ -12,7 +12,7 @@ import Kingfisher
 final class SearchResultViewController: UIViewController {
     
     private lazy var searchResultCollectionView = UICollectionView(frame: .zero,
-                                                        collectionViewLayout: UICollectionViewLayout())
+                                                                   collectionViewLayout: createCollectionViewLayout())
     
     private let searchViewModel = SearchViewModel()
     
@@ -55,24 +55,53 @@ extension SearchResultViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return SearchResultSections.allCases.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectioViewCell.identifier,
-                                                            for: indexPath) as? SearchResultCollectioViewCell else {
-            return SearchResultCollectioViewCell()
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 4
+        case 1:
+            return 10
+        default:
+            return 0
         }
-        cell.backgroundColor = .point
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        return cell
+        switch SearchResultSections(rawValue: indexPath.section) {
+        case .filter:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchFilterCollectionViewCell.identifier,
+                                                                for: indexPath) as? SearchFilterCollectionViewCell else {
+                return SearchFilterCollectionViewCell()
+            }
+            
+            let name = SearchFilter.allCases[indexPath.row].title
+            cell.updateContent(name: name, type: .notSelcted)
+            
+            return cell
+            
+        case .result:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier,
+                                                                for: indexPath) as? SearchResultCollectionViewCell else {
+                return SearchResultCollectionViewCell()
+            }
+            
+            
+            return cell
+            
+        default:
+            return UICollectionViewCell()
+        }
+        
     }
     
 }
-
-
 
 //MARK: - Configuration
 
@@ -93,7 +122,7 @@ extension SearchResultViewController {
     }
     
     private func configureHierarchy() {
-     
+        
         view.addSubview(searchResultCollectionView)
         view.addSubview(searchResultCountLabel)
     }
@@ -103,45 +132,39 @@ extension SearchResultViewController {
         searchResultCountLabel.textColor = .point
     }
     
-    private func configureGestureAndButtonActions() {
-        
-    }
-    
     private func configuraCollectionView() {
         
         searchResultCollectionView.delegate = self
         searchResultCollectionView.dataSource = self
         searchResultCollectionView.collectionViewLayout = createCollectionViewLayout()
-        searchResultCollectionView.backgroundColor = .gray
         
-        searchResultCollectionView.register(SearchResultCollectioViewCell.self,
-                                            forCellWithReuseIdentifier: SearchResultCollectioViewCell.identifier)
+        searchResultCollectionView.register(SearchFilterCollectionViewCell.self,
+                                            forCellWithReuseIdentifier: SearchFilterCollectionViewCell.identifier)
+        searchResultCollectionView.register(SearchResultCollectionViewCell.self,
+                                            forCellWithReuseIdentifier: SearchResultCollectionViewCell.identifier)
     }
     
-    private func createCollectionViewLayout() -> UICollectionViewLayout {
-        
-        var layout = UICollectionViewFlowLayout()
-        
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 0,
-                                           left: 20,
-                                           bottom: 0,
-                                           right: 20)
-        let width = (view.frame.width - 50) / 2
-        let height = (searchResultCollectionView.frame.height - 10) / 2
-     
-        layout.itemSize = CGSize(width: width,
-                                 height: height)
-        
-        return layout
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            switch SearchResultSections(rawValue: sectionIndex) {
+                
+            case .filter:
+                return SearchResultSections.filter.layoutSection
+                
+            case .result:
+                return SearchResultSections.result.layoutSection
+                
+            default:
+                return SearchResultSections.result.layoutSection
+                
+            }
+        }
     }
     
     private func configureLayout() {
         
         searchResultCountLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         

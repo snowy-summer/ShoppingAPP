@@ -161,7 +161,7 @@ extension MainViewController {
         emptyImageView.backgroundColor = .white
         
         listStatusLabel.text = "최근 검색어가 없어요"
-        listStatusLabel.font = .systemFont(ofSize: 16, weight: .heavy)
+        listStatusLabel.font = FontType.boldTitle.font
     }
     
     private func configureTableView() {

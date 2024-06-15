@@ -1,5 +1,5 @@
 //
-//  SearchResultCollectioViewCell.swift
+//  SearchResultCollectionViewCell.swift
 //  ShoppingApp
 //
 //  Created by 최승범 on 6/15/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchResultCollectioViewCell: UICollectionViewCell {
+final class SearchResultCollectionViewCell: UICollectionViewCell {
     
     private let thumbnailImageView = UIImageView()
     private let basketIconImageView = UIImageView()
@@ -33,7 +33,7 @@ final class SearchResultCollectioViewCell: UICollectionViewCell {
 
 //MARK: - Method
 
-extension SearchResultCollectioViewCell {
+extension SearchResultCollectionViewCell {
     
     func updateContent(data: Int) {
         
@@ -43,7 +43,7 @@ extension SearchResultCollectioViewCell {
 
 //MARK: - Configuration
 
-extension SearchResultCollectioViewCell {
+extension SearchResultCollectionViewCell {
 
     private func configureHierarchy() {
         
@@ -56,6 +56,23 @@ extension SearchResultCollectioViewCell {
     }
     
     private func configureUI() {
+        
+        thumbnailImageView.layer.cornerRadius = 8
+        thumbnailImageView.backgroundColor = .black
+        
+        basketIconImageView.image = UIImage(resource: .likeSelected)
+        storeNameLabel.text = "네이버"
+        
+        storeNameLabel.font = FontType.caption.font
+        storeNameLabel.textColor = FontType.caption.color
+        
+        titleLabel.text = "네이버aaaaaaaaaaaaaaa"
+        titleLabel.font = FontType.normaltitle.font
+        titleLabel.textColor = FontType.normaltitle.color
+        
+        costLabel.text = "1,444,000 원"
+        costLabel.font = FontType.boldTitle.font
+        costLabel.textColor = FontType.boldTitle.color
         
     }
     
@@ -76,12 +93,12 @@ extension SearchResultCollectioViewCell {
         }
         
         storeNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(thumbnailImageView.snp.bottom)
+            make.top.equalTo(thumbnailImageView.snp.bottom).offset(4)
             make.directionalHorizontalEdges.equalToSuperview().inset(4)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(storeNameLabel.snp.bottom)
+            make.top.equalTo(storeNameLabel.snp.bottom).offset(4)
             make.directionalHorizontalEdges.equalToSuperview().inset(4)
         }
         

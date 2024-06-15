@@ -46,8 +46,8 @@ extension OnboardingViewController {
         
         titleLabel.text = "MeaningOut"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .point
-        titleLabel.font = .systemFont(ofSize: 36, weight: .black)
+        titleLabel.textColor = FontType.onboardingTitle.color
+        titleLabel.font = FontType.onboardingTitle.font
         
         backImageView.image = .launch
         backImageView.contentMode = .scaleAspectFit

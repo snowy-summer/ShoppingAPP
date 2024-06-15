@@ -77,7 +77,6 @@ extension RecordListTableViewCell {
         recordIconImageView.image = UIImage(systemName: IconType.searchRecordIcon.iconString)
         recordIconImageView.tintColor = .title
         
-        deleteButton.titleLabel?.text = .none
         deleteButton.setImage(UIImage(systemName: IconType.deleteIcon.iconString), for: .normal)
         deleteButton.tintColor = .title
     }

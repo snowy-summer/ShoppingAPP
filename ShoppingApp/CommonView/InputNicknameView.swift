@@ -57,14 +57,11 @@ extension InputNicknameView {
     
     private func configureUI() {
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
-        nicknameTextField.font = .systemFont(ofSize: 16,
-                                             weight: .bold)
+        nicknameTextField.font = FontType.boldTitle.font
         
         nicknameTextField.addTarget(self,
                                     action: #selector(textFieldDIdChnage),
                                     for: .editingChanged)
-        
-        // textViewLeftView로 여백을 줄수 있음
         
         lineView.backgroundColor = .icon
     }
