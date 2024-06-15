@@ -22,7 +22,7 @@ final class SearchResultCollectioViewCell: UICollectionViewCell {
         configureHierarchy()
         configureUI()
         configureGestureAndButtonActions()
-//        configureLayout()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {

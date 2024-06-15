@@ -11,16 +11,27 @@ import Alamofire
 
 final class SearchViewModel: ObservableObject {
     
-//    func getData() {
-//        AF.request(url).responseDecodable(of: Decodable.self) { response in
-//            switch response.result {
-//                
-//            case .success(let data):
-//                
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
+    private(set) var shoppingList = ShoppingList(total: 0, start: 0, display: 0, items: [])
+    
+    func getData() {
+        
+        let naverShopping = URLList.naverShopping("키보드", 1)
+        guard let url = naverShopping.url else {
+            print("잘못된 url입니다.")
+            return
+        }
+        
+        AF.request(url,
+                   headers: naverShopping.headers)
+        .responseDecodable(of: ShoppingList.self) { response in
+            switch response.result {
+                
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
 }

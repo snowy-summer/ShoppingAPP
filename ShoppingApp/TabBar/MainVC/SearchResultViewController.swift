@@ -14,6 +14,8 @@ final class SearchResultViewController: UIViewController {
     private lazy var searchResultCollectionView = UICollectionView(frame: .zero,
                                                         collectionViewLayout: UICollectionViewLayout())
     
+    private let searchViewModel = SearchViewModel()
+    
     private let searchResultCountLabel = UILabel()
     
     override func viewDidLoad() {
@@ -26,6 +28,7 @@ final class SearchResultViewController: UIViewController {
         configureUI()
         configureLayout()
         configuraCollectionView()
+        binding()
     }
     
     override func viewWillLayoutSubviews() {
@@ -38,6 +41,10 @@ final class SearchResultViewController: UIViewController {
 //MARK: - Method
 
 extension SearchResultViewController {
+    
+    private func binding() {
+        
+    }
     
     @objc private func popVC() {
         navigationController?.popViewController(animated: true)
