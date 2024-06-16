@@ -18,6 +18,16 @@ final class ProfileSettingViewController: UIViewController {
     private var profileViewModel = ProFileViewModel()
     private var cancellables = Set<AnyCancellable>()
     
+    init(type: ProfileSettingViewControllerType) {
+        super.init(nibName: nil, bundle: nil)
+        profileViewModel.type = type
+        configureByType()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,17 +65,39 @@ extension ProfileSettingViewController {
     }
     
     @objc private func pushSelectProfileVC() {
-        navigationController?.pushViewController(SelectProfileViewController(),
+        navigationController?.pushViewController(SelectProfileViewController(type: profileViewModel.type),
                                                  animated: true)
     }
     
     @objc private func popVC() {
+        switch profileViewModel.type {
+        case .first:
+            UserData.data.resetData()
+        case .setting:
+            break
+        }
         
-        UserData.data.resetData()
         navigationController?.popViewController(animated: true)
     }
     
+    @objc private func saveProfile() {
+        
+        guard let nickname = inputNicknameView.nicknameTextField.text else { return }
+        
+        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
+            profileViewModel.updateNickname(nickname)
+            navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
     @objc private func completeButtonClicked() {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let date = formatter.string(from: Date())
+        
+        UserData.data.signUpDate = date + " 가입"
         
         guard let nickname = inputNicknameView.nicknameTextField.text else { return }
         
@@ -85,9 +117,30 @@ extension ProfileSettingViewController {
 
 extension ProfileSettingViewController {
     
+    private func configureByType() {
+        
+        switch profileViewModel.type {
+        case .setting:
+            
+            completeButton.isHidden = true
+            
+            let saveViewControllerItem = UIBarButtonItem(title: "저장",
+                                                        style: .plain,
+                                                        target: self,
+                                                        action: #selector(saveProfile))
+            saveViewControllerItem.tintColor = .title
+            
+            navigationItem.rightBarButtonItem = saveViewControllerItem
+        case .first:
+            return
+        }
+        
+    }
+    
     private func configureNavigationBar() {
         
-        navigationItem.title = "PROFILE SETTING"
+        navigationItem.title = profileViewModel.type.navigationTitle
+        
         
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,

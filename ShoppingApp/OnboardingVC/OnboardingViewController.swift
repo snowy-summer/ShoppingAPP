@@ -27,12 +27,7 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc private func startButtonClicked() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-        let date = formatter.string(from: Date())
-        
-        UserData.data.signUpDate = date + " 가입"
-        navigationController?.pushViewController(ProfileSettingViewController(),
+        navigationController?.pushViewController(ProfileSettingViewController(type: .first),
                                                  animated: true)
     }
     

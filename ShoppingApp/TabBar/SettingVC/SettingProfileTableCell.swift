@@ -29,6 +29,16 @@ final class SettingProfileTableCell: UITableViewCell {
     }
 }
 
+extension SettingProfileTableCell {
+    
+    func updateContent() {
+        let data = UserData.data
+        nicknameLabel.text = data.nickname
+        signUpDateLabel.text = data.signUpDate
+        profileImageView.updateProfileImage(named: data.profileImageString)
+    }
+}
+
 //MARK: - Configuration
 
 extension SettingProfileTableCell {

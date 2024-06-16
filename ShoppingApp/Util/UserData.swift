@@ -74,6 +74,7 @@ final class UserData {
     
     func resetData() {
         
+        UserDefaults.standard.removeObject(forKey: "signUpDate")
         UserDefaults.standard.removeObject(forKey: "profile")
         UserDefaults.standard.removeObject(forKey: "nickname")
         UserDefaults.standard.removeObject(forKey: "searchRecord")

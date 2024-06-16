@@ -12,6 +12,7 @@ final class ProFileViewModel: ObservableObject {
     
     @Published private(set) var imageString: String? = UserData.data.profileImageString
     @Published private(set) var nickname: String? = UserData.data.nickname
+    var type: ProfileSettingViewControllerType = .first
     
     func updateImageString(_ newValue: String?) {
         imageString = newValue
