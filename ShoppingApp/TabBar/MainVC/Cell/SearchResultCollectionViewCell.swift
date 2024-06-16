@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
+import Kingfisher
 
 final class SearchResultCollectionViewCell: UICollectionViewCell {
     
     private let thumbnailImageView = UIImageView()
-    private let basketIconImageView = UIImageView()
+    private let likeButton = UIButton()
     private let storeNameLabel = UILabel()
     private let titleLabel = UILabel()
     private let costLabel = UILabel()
+    
+    private(set) var buttonClicked = PassthroughSubject<Void, Never>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,10 +39,25 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
 
 extension SearchResultCollectionViewCell {
     
-    func updateContent(data: Int) {
+    func updateContent(data: Item) {
         
+        thumbnailImageView.kf.setImage(with: URL(string: data.image))
+        storeNameLabel.text = data.mallName
+        titleLabel.text = data.title
+        if let price = Int(data.lprice)?.formatted() {
+            costLabel.text = price + "원"
+        }
+        
+        if let likeArray = UserData.data.like {
+            
+            let isLiked = likeArray.contains(data.productId)
+            configureLikeButton(isLiked: isLiked)
+        }
     }
     
+    @objc private func likeButtonClicked() {
+        buttonClicked.send()
+    }
 }
 
 //MARK: - Configuration
@@ -48,7 +67,7 @@ extension SearchResultCollectionViewCell {
     private func configureHierarchy() {
         
         contentView.addSubview(thumbnailImageView)
-        contentView.addSubview(basketIconImageView)
+        contentView.addSubview(likeButton)
         contentView.addSubview(storeNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(costLabel)
@@ -58,26 +77,38 @@ extension SearchResultCollectionViewCell {
     private func configureUI() {
         
         thumbnailImageView.layer.cornerRadius = 8
-        thumbnailImageView.backgroundColor = .black
+        thumbnailImageView.layer.cornerCurve = .continuous
+        thumbnailImageView.clipsToBounds = true
         
-        basketIconImageView.image = UIImage(resource: .likeSelected)
-        storeNameLabel.text = "네이버"
+        configureLikeButton(isLiked: false)
         
-        storeNameLabel.font = FontType.caption.font
-        storeNameLabel.textColor = FontType.caption.color
+        storeNameLabel.configure(by: .caption)
         
-        titleLabel.text = "네이버aaaaaaaaaaaaaaa"
-        titleLabel.font = FontType.normaltitle.font
-        titleLabel.textColor = FontType.normaltitle.color
+        titleLabel.configure(by: .normaltitle)
+        titleLabel.numberOfLines = 2
         
-        costLabel.text = "1,444,000 원"
-        costLabel.font = FontType.boldTitle.font
-        costLabel.textColor = FontType.boldTitle.color
+        costLabel.configure(by: .boldTitle)
         
     }
     
     private func configureGestureAndButtonActions() {
         
+        likeButton.addTarget(self,
+                             action: #selector(likeButtonClicked),
+                             for: .touchUpInside)
+        
+    }
+    
+    private func configureLikeButton(isLiked: Bool) {
+        
+        var configuration = UIButton.Configuration.filled()
+        
+        configuration.image = isLiked ? UIImage(resource: .likeSelected) : UIImage(resource: .likeUnselected)
+        configuration.background.backgroundColor = isLiked ?  UIColor.background : UIColor.subtitle.withAlphaComponent(0.2)
+        configuration.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 14)
+        configuration.cornerStyle = .medium
+        
+        likeButton.configuration = configuration
     }
     
     private func configureLayout() {
@@ -87,9 +118,11 @@ extension SearchResultCollectionViewCell {
             make.height.equalToSuperview().multipliedBy(0.7)
         }
         
-        basketIconImageView.snp.makeConstraints { make in
+        likeButton.snp.makeConstraints { make in
             make.bottom.equalTo(thumbnailImageView.snp.bottom).inset(8)
             make.trailing.equalTo(thumbnailImageView.snp.trailing).inset(8)
+            make.width.equalTo(thumbnailImageView.snp.width).multipliedBy(0.2)
+            make.height.equalTo(thumbnailImageView.snp.width).multipliedBy(0.2)
         }
         
         storeNameLabel.snp.makeConstraints { make in

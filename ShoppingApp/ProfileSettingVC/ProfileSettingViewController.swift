@@ -69,7 +69,7 @@ extension ProfileSettingViewController {
         
         guard let nickname = inputNicknameView.nicknameTextField.text else { return }
         
-        if NicknameChecker.resultOfNickname(name: nickname) == NicknameStatus.success {
+        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
             profileViewModel.updateNickname(nickname)
             
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene

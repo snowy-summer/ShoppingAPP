@@ -9,9 +9,9 @@ import UIKit
 
 struct NicknameChecker {
     
-    static func resultOfNickname(name: String) -> NicknameStatus {
+    static func resultOfNickname(name: String) -> NicknameState {
             
-        let nicknameType = NicknameStatus.success
+        let nicknameType = NicknameState.success
         
         if name.count < 2 {
             return .underTheCount

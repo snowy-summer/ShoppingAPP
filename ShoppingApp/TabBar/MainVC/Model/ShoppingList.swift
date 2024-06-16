@@ -12,7 +12,7 @@ import Foundation
 struct ShoppingList: Decodable {
     
     let total, start, display: Int
-    let items: [Item]
+    var items: [Item]
 }
 
 // MARK: - Item

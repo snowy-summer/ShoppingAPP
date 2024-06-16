@@ -17,7 +17,6 @@ final class SearchFilterCollectionViewCell: UICollectionViewCell {
         
         configureHierarchy()
         configureUI()
-        configureGestureAndButtonActions()
         configureLayout()
     }
     
@@ -39,7 +38,7 @@ final class SearchFilterCollectionViewCell: UICollectionViewCell {
 extension SearchFilterCollectionViewCell {
     
     func updateContent(name: String,
-                       type: SearchFilterButtonType) {
+                       type: SearchFilterButtonState) {
       
         var buttonConfiguration = UIButton.Configuration.filled()
         
@@ -68,13 +67,9 @@ extension SearchFilterCollectionViewCell {
     private func configureUI() {
         
         fileterButton.layer.borderWidth = 1
-        fileterButton.layer.borderColor = SearchFilterButtonType.notSelcted.borderColor.cgColor
+        fileterButton.layer.borderColor = SearchFilterButtonState.notSelected.borderColor.cgColor
     }
-    
-    private func configureGestureAndButtonActions() {
-        
-    }
-    
+ 
     private func configureLayout() {
         
         fileterButton.snp.makeConstraints { make in

@@ -69,6 +69,8 @@ extension MainViewController: UISearchBarDelegate {
         searchBar.text = .none
         mainViewModel.updateRecordList(text: text)
         
+        navigationController?.pushViewController(SearchResultViewController(keyword: text), animated: true)
+        
     }
     
 }
@@ -98,7 +100,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         
-        navigationController?.pushViewController(SearchResultViewController(), animated: true)
+        guard let keyword = mainViewModel.list?[indexPath.row].name else { return }
+        
+        navigationController?.pushViewController(SearchResultViewController(keyword: keyword), animated: true)
     }
     
 }

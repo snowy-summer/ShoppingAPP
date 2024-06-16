@@ -6,17 +6,28 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
-import Kingfisher
 
 final class SearchResultViewController: UIViewController {
     
     private lazy var searchResultCollectionView = UICollectionView(frame: .zero,
                                                                    collectionViewLayout: createCollectionViewLayout())
+    private let searchResultHeaderView = SearchResultHeaderView()
     
+    private let keyword: String
     private let searchViewModel = SearchViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
-    private let searchResultCountLabel = UILabel()
+    init(keyword: String) {
+        self.keyword = keyword
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +36,11 @@ final class SearchResultViewController: UIViewController {
         
         configureNavigationBar()
         configureHierarchy()
-        configureUI()
         configureLayout()
         configuraCollectionView()
+        configureHeaderView()
         binding()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -44,6 +56,36 @@ extension SearchResultViewController {
     
     private func binding() {
         
+        searchViewModel.$shoppingList.receive(on: DispatchQueue.main)
+            .sink { [weak self] shoppingList in
+                guard let self = self else { return }
+                
+                searchResultHeaderView.updateContent(data: shoppingList.total)
+                searchResultCollectionView.reloadData()
+            }.store(in: &cancellables)
+        
+        searchViewModel.$productCount
+            .sink { [weak self] newValue in
+                guard let self = self else { return }
+                
+                if !searchViewModel.shoppingList.items.isEmpty && newValue == 1 { return }
+                
+                searchViewModel.getData(what: keyword,
+                                        where: newValue)
+                
+            }.store(in: &cancellables)
+        
+        searchViewModel.$filterType
+            .sink { [weak self] newValue in
+                guard let self = self else { return }
+                
+                if searchViewModel.filterType == newValue { return }
+                
+                searchViewModel.resetProductCount()
+                searchViewModel.getData(what: keyword,
+                                        by: newValue)
+                
+            }.store(in: &cancellables)
     }
     
     @objc private func popVC() {
@@ -55,50 +97,63 @@ extension SearchResultViewController {
 
 extension SearchResultViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SearchResultSections.allCases.count
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 4
-        case 1:
-            return 10
-        default:
-            return 0
-        }
+        
+        return searchViewModel.shoppingList.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch SearchResultSections(rawValue: indexPath.section) {
-        case .filter:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchFilterCollectionViewCell.identifier,
-                                                                for: indexPath) as? SearchFilterCollectionViewCell else {
-                return SearchFilterCollectionViewCell()
-            }
-            
-            let name = SearchFilter.allCases[indexPath.row].title
-            cell.updateContent(name: name, type: .notSelcted)
-            
-            return cell
-            
-        case .result:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier,
-                                                                for: indexPath) as? SearchResultCollectionViewCell else {
-                return SearchResultCollectionViewCell()
-            }
-            
-            
-            return cell
-            
-        default:
-            return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionViewCell.identifier,
+                                                            for: indexPath) as? SearchResultCollectionViewCell else {
+            return SearchResultCollectionViewCell()
         }
         
+        let data = searchViewModel.shoppingList.items[indexPath.row]
+        cell.updateContent(data: data)
+        
+        cell.buttonClicked
+            .sink { _ in
+                let likeData = UserData.data.like
+                var setData = Set(likeData!)
+                if setData.contains(data.productId) {
+                    setData.remove(data.productId)
+                } else {
+                    setData.insert(data.productId)
+                }
+                
+                UserData.data.like = Array(setData)
+                cell.updateContent(data: data)
+            }.store(in: &cancellables)
+        
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+        searchViewModel.saveLike(indexPath: indexPath)
+    }
+    
+}
+
+extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
+        
+        for item in indexPaths {
+            
+            if searchViewModel.shoppingList.items.count - 4 == item.row &&
+                searchViewModel.productCount <= searchViewModel.shoppingList.total {
+                
+                searchViewModel.updatepProductCount()
+                
+            }
+        }
     }
     
 }
@@ -109,7 +164,7 @@ extension SearchResultViewController {
     
     private func configureNavigationBar() {
         
-        navigationItem.title = "결과"
+        navigationItem.title = keyword
         
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,
@@ -124,18 +179,19 @@ extension SearchResultViewController {
     private func configureHierarchy() {
         
         view.addSubview(searchResultCollectionView)
-        view.addSubview(searchResultCountLabel)
+        view.addSubview(searchResultHeaderView)
     }
     
-    private func configureUI() {
-        searchResultCountLabel.text = "aaaa"
-        searchResultCountLabel.textColor = .point
+    private func configureHeaderView() {
+        searchResultHeaderView.viewModel = searchViewModel
     }
     
     private func configuraCollectionView() {
         
         searchResultCollectionView.delegate = self
         searchResultCollectionView.dataSource = self
+        searchResultCollectionView.prefetchDataSource = self
+        
         searchResultCollectionView.collectionViewLayout = createCollectionViewLayout()
         
         searchResultCollectionView.register(SearchFilterCollectionViewCell.self,
@@ -145,31 +201,23 @@ extension SearchResultViewController {
     }
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        
         return UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            switch SearchResultSections(rawValue: sectionIndex) {
-                
-            case .filter:
-                return SearchResultSections.filter.layoutSection
-                
-            case .result:
-                return SearchResultSections.result.layoutSection
-                
-            default:
-                return SearchResultSections.result.layoutSection
-                
-            }
+            
+            return SearchResultSections.result.layoutSection
         }
+        
     }
     
     private func configureLayout() {
         
-        searchResultCountLabel.snp.makeConstraints { make in
+        searchResultHeaderView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
         }
         
         searchResultCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchResultCountLabel.snp.bottom).offset(8)
+            make.top.equalTo(searchResultHeaderView.snp.bottom).offset(8)
             make.directionalHorizontalEdges.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }

@@ -1,5 +1,5 @@
 //
-//  NicknameStatus.swift
+//  NicknameState.swift
 //  ShoppingApp
 //
 //  Created by 최승범 on 6/14/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum NicknameStatus: Equatable {
+enum NicknameState: Equatable {
     case success
     case containNumber
     case overTheCount

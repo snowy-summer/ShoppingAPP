@@ -64,23 +64,3 @@ enum SearchResultSections: Int, CaseIterable {
     }
 
 }
-
-enum SearchFilter: CaseIterable {
-    case sim
-    case date
-    case asc
-    case dsc
-    
-    var title: String {
-        switch self {
-        case .sim:
-            return "정확도"
-        case .date:
-            return "날짜순"
-        case .asc:
-            return "가격높은순"
-        case .dsc:
-            return "가격낮은순"
-        }
-    }
-}
