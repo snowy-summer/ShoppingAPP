@@ -43,7 +43,8 @@ extension SearchResultCollectionViewCell {
         
         thumbnailImageView.kf.setImage(with: URL(string: data.image))
         storeNameLabel.text = data.mallName
-        titleLabel.text = data.title
+        titleLabel.text = data.title.removeHtmlTag
+        
         if let price = Int(data.lprice)?.formatted() {
             costLabel.text = price + "원"
         }
