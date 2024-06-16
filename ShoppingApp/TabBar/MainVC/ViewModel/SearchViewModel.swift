@@ -17,6 +17,11 @@ final class SearchViewModel: ObservableObject {
                                                             items: [])
     @Published private(set) var productCount = 1
     @Published private(set) var filterType = SearchFilter.sim
+    private(set) var keyword: String
+    
+    init(keyword: String) {
+        self.keyword = keyword
+    }
     
     func updatepProductCount() {
         productCount += 30
@@ -52,10 +57,9 @@ final class SearchViewModel: ObservableObject {
     
     //MARK: - 데이터 통신
     
-    func getData(what searchText: String,
-                 where start: Int) {
+    func getData(where start: Int) {
         
-        let naverShopping = URLList.naverShopping(searchText, start, filterType.rawValue)
+        let naverShopping = URLList.naverShopping(keyword, start, filterType.rawValue)
         guard let url = naverShopping.url else {
             print("잘못된 url입니다.")
             return
@@ -86,10 +90,9 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
-    func getData(what searchText: String,
-                 by filter: SearchFilter) {
+    func getData(by filter: SearchFilter) {
       
-        let naverShopping = URLList.naverShopping(searchText,
+        let naverShopping = URLList.naverShopping(keyword,
                                                   productCount,
                                                   filter.rawValue)
         guard let url = naverShopping.url else {

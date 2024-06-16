@@ -15,12 +15,11 @@ final class SearchResultViewController: UIViewController {
                                                                    collectionViewLayout: createCollectionViewLayout())
     private let searchResultHeaderView = SearchResultHeaderView()
     
-    private let keyword: String
-    private let searchViewModel = SearchViewModel()
+    private let searchViewModel: SearchViewModel
     private var cancellables = Set<AnyCancellable>()
     
     init(keyword: String) {
-        self.keyword = keyword
+        self.searchViewModel =  SearchViewModel(keyword: keyword)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -70,8 +69,7 @@ extension SearchResultViewController {
                 
                 if !searchViewModel.shoppingList.items.isEmpty && newValue == 1 { return }
                 
-                searchViewModel.getData(what: keyword,
-                                        where: newValue)
+                searchViewModel.getData(where: newValue)
                 
             }.store(in: &cancellables)
         
@@ -82,8 +80,7 @@ extension SearchResultViewController {
                 if searchViewModel.filterType == newValue { return }
                 
                 searchViewModel.resetProductCount()
-                searchViewModel.getData(what: keyword,
-                                        by: newValue)
+                searchViewModel.getData(by: newValue)
                 
             }.store(in: &cancellables)
     }
@@ -164,7 +161,7 @@ extension SearchResultViewController {
     
     private func configureNavigationBar() {
         
-        navigationItem.title = keyword
+        navigationItem.title = searchViewModel.keyword
         
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,
