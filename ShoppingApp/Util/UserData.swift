@@ -12,6 +12,15 @@ final class UserData {
     private init() { }
     static let data = UserData()
     
+    var signUpDate: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "signUpDate")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "signUpDate")
+        }
+    }
+    
     var profileImageString: String? {
         get {
             return UserDefaults.standard.string(forKey: "profile")
@@ -65,6 +74,7 @@ final class UserData {
     
     func resetData() {
         
+        UserDefaults.standard.removeObject(forKey: "signUpDate")
         UserDefaults.standard.removeObject(forKey: "profile")
         UserDefaults.standard.removeObject(forKey: "nickname")
         UserDefaults.standard.removeObject(forKey: "searchRecord")

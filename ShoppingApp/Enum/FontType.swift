@@ -12,6 +12,8 @@ enum FontType {
     case normaltitle
     case boldTitle
     case body
+    case setting
+    case boldSetting
     case caption
 
     var font: UIFont {
@@ -24,6 +26,10 @@ enum FontType {
             return UIFont.systemFont(ofSize: 16, weight: .bold)
         case .body:
             return UIFont.systemFont(ofSize: 15, weight: .medium)
+        case .setting:
+            return UIFont.systemFont(ofSize: 14, weight: .medium)
+        case .boldSetting:
+            return UIFont.systemFont(ofSize: 14, weight: .bold)
         case .caption:
             return UIFont.systemFont(ofSize: 13, weight: .semibold)
       

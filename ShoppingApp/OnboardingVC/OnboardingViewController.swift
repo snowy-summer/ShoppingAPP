@@ -27,7 +27,7 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc private func startButtonClicked() {
-        navigationController?.pushViewController(ProfileSettingViewController(),
+        navigationController?.pushViewController(ProfileSettingViewController(type: .first),
                                                  animated: true)
     }
     

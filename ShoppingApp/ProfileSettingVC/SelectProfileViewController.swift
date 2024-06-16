@@ -18,6 +18,16 @@ final class SelectProfileViewController: UIViewController {
     private let profileViewModel = ProFileViewModel()
     private var cancellables = Set<AnyCancellable>()
     
+    init(type: ProfileSettingViewControllerType) {
+        super.init(nibName: nil, bundle: nil)
+        
+        profileViewModel.type = type
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,7 +102,7 @@ extension SelectProfileViewController {
     
     private func configureNavigationBar() {
         
-        navigationItem.title = "PROFILE SETTING"
+        navigationItem.title = profileViewModel.type.navigationTitle
         
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,

@@ -22,8 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             viewController = UINavigationController(rootViewController: OnboardingViewController())
         }
-    
-//        viewController = UINavigationController(rootViewController: OnboardingViewController())
+        
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()

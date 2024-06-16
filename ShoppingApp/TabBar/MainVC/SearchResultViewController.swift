@@ -147,7 +147,7 @@ extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
         
         for item in indexPaths {
             
-            if searchViewModel.shoppingList.items.count - 4 == item.row &&
+            if searchViewModel.shoppingList.items.count - 8 == item.row &&
                 searchViewModel.productCount <= searchViewModel.shoppingList.total {
                 
                 searchViewModel.updatepProductCount()
