@@ -88,7 +88,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordListTableViewCell.identifier,
                                                        for: indexPath) as? RecordListTableViewCell else { return RecordListTableViewCell() }
-        
+        cell.selectionStyle = .none
         cell.delegate = self
         
         if let data = mainViewModel.list?[indexPath.row] {
