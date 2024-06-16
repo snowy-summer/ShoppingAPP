@@ -23,7 +23,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         configureNavigationBar()
         configureHierarchy()
@@ -162,7 +162,7 @@ extension MainViewController {
         
         emptyImageView.image = UIImage(resource: .empty)
         emptyImageView.contentMode = .scaleAspectFit
-        emptyImageView.backgroundColor = .white
+        emptyImageView.backgroundColor = .background
         
         listStatusLabel.text = "최근 검색어가 없어요"
         listStatusLabel.font = FontType.boldTitle.font

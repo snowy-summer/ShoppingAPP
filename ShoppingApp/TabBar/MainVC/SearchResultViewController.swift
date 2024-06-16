@@ -31,7 +31,7 @@ final class SearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         configureNavigationBar()
         configureHierarchy()
@@ -45,6 +45,14 @@ final class SearchResultViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         searchResultCollectionView.collectionViewLayout = createCollectionViewLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if searchViewModel.shoppingList.items.isEmpty { return }
+        
+        searchResultCollectionView.reloadData()
     }
     
 }
@@ -112,16 +120,10 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         cell.updateContent(data: data)
         
         cell.buttonClicked
-            .sink { _ in
-                let likeData = UserData.data.like
-                var setData = Set(likeData!)
-                if setData.contains(data.productId) {
-                    setData.remove(data.productId)
-                } else {
-                    setData.insert(data.productId)
-                }
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 
-                UserData.data.like = Array(setData)
+                searchViewModel.changeLike(productId: data.productId)
                 cell.updateContent(data: data)
             }.store(in: &cancellables)
         
@@ -132,7 +134,8 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         
-        searchViewModel.saveLike(indexPath: indexPath)
+        navigationController?.pushViewController(ProductWebViewController(item: searchViewModel.shoppingList.items[indexPath.row]),
+                                                 animated: true)
     }
     
 }

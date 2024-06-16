@@ -35,23 +35,22 @@ final class SearchViewModel: ObservableObject {
         filterType = type
     }
     
-    func saveLike(indexPath: IndexPath) {
-        let productId = shoppingList.items[indexPath.row].productId
+    func changeLike(productId: String) {
         
-        
-        guard var likeArray = UserData.data.like else {
+        guard let likeArray = UserData.data.like else {
             UserData.data.like = [productId]
             return
         }
-        
-        if likeArray.contains(productId) {
-            let index = likeArray.firstIndex(of: productId)!
-            likeArray.remove(at: index)
+       
+        var setData = Set(likeArray)
+        if setData.contains(productId) {
+            setData.remove(productId)
         } else {
-            likeArray.append(productId)
+            setData.insert(productId)
         }
         
-        UserData.data.like = likeArray
+        UserData.data.like = Array(setData)
+        
     }
   
     
