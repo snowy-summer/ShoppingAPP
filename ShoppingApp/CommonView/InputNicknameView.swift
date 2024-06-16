@@ -44,7 +44,6 @@ extension InputNicknameView {
     
 }
 
-
 //MARK: - Configuration
 
 extension InputNicknameView {
@@ -58,8 +57,7 @@ extension InputNicknameView {
     
     private func configureUI() {
         nicknameTextField.placeholder = "닉네임을 입력해주세요 :)"
-        nicknameTextField.font = .systemFont(ofSize: 16,
-                                             weight: .bold)
+        nicknameTextField.font = FontType.boldTitle.font
         
         nicknameTextField.addTarget(self,
                                     action: #selector(textFieldDIdChnage),
@@ -69,6 +67,7 @@ extension InputNicknameView {
     }
     
     private func configureLayout() {
+        
         nicknameTextField.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top)
             make.directionalHorizontalEdges.equalTo(self.snp.directionalHorizontalEdges).inset(20)

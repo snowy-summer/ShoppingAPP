@@ -37,7 +37,7 @@ extension ImageCollectionViewCell {
     func updateProfileImage(index: Int) {
         let imageString = Profile.allCases[index].rawValue
         
-        if imageString == UserData.profileImageString { changeType(type: .selected) }
+        if imageString == UserData.data.profileImageString { changeType(type: .selected) }
         
         profileView.updateProfileImage(named: imageString)
     }
@@ -56,7 +56,7 @@ extension ImageCollectionViewCell {
     private func configureLayout() {
         
         profileView.snp.makeConstraints { make in
-            make.edges.equalTo(contentView.snp.edges)
+            make.directionalEdges.equalTo(contentView.snp.directionalEdges)
         }
     }
 }

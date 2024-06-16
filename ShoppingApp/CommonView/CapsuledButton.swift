@@ -22,17 +22,15 @@ final class CapsuledButton: UIButton {
     }
     
     private func configure(title: String) -> UIButton.Configuration {
+        
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.cornerStyle = .capsule
         
-        
         var titleContainer = AttributeContainer()
-        titleContainer.font = UIFont.systemFont(ofSize: FontOfDesign.capsuledButton.rawValue,
-                                                weight: .bold)
+        titleContainer.font = FontType.boldTitle.font
         
         buttonConfiguration.attributedTitle = AttributedString(title, attributes: titleContainer)
         
-       
         return buttonConfiguration
     }
 }

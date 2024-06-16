@@ -17,11 +17,11 @@ final class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         configureHierarchy()
         configureUI()
-        setupGestureAndButtonActions()
+        configureGestureAndButtonActions()
         configureLayout()
     
     }
@@ -46,15 +46,15 @@ extension OnboardingViewController {
         
         titleLabel.text = "MeaningOut"
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .point
-        titleLabel.font = .systemFont(ofSize: 36, weight: .black)
+        titleLabel.textColor = FontType.onboardingTitle.color
+        titleLabel.font = FontType.onboardingTitle.font
         
         backImageView.image = .launch
         backImageView.contentMode = .scaleAspectFit
         
     }
     
-    private func setupGestureAndButtonActions() {
+    private func configureGestureAndButtonActions() {
         
         startButton.addTarget(self,
                               action: #selector(startButtonClicked),
@@ -75,8 +75,8 @@ extension OnboardingViewController {
         }
         
         startButton.snp.makeConstraints { make in
-            
-            make.bottom.directionalHorizontalEdges.equalToSuperview().inset(40)
+            make.top.equalTo(backImageView.snp.bottom).offset(20)
+            make.directionalHorizontalEdges.equalToSuperview().inset(40)
             make.height.equalTo(44)
             
         }

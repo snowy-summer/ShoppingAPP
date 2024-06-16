@@ -2,7 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift
 
-API.swift
+URLList.swift
 
 .DS_Store
 

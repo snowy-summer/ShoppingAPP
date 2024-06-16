@@ -21,7 +21,7 @@ final class ProfileSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         configureNavigationBar()
         configureHierarchy()
@@ -61,7 +61,7 @@ extension ProfileSettingViewController {
     
     @objc private func popVC() {
         
-        UserData.resetData()
+        UserData.data.resetData()
         navigationController?.popViewController(animated: true)
     }
     
@@ -69,10 +69,14 @@ extension ProfileSettingViewController {
         
         guard let nickname = inputNicknameView.nicknameTextField.text else { return }
         
-        if NicknameChecker.resultOfNickname(name: nickname) == NicknameStatus.success {
+        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
             profileViewModel.updateNickname(nickname)
-            navigationController?.pushViewController(MainViewController(),
-                                                     animated: true)
+            
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            sceneDelegate?.window?.rootViewController = TabBarController()
+            sceneDelegate?.window?.makeKeyAndVisible()
+            
         }
     }
 }
@@ -114,7 +118,7 @@ extension ProfileSettingViewController {
     
     private func configureProfileImage() {
         
-        guard let imageString = UserData.profileImageString else {
+        guard let imageString = UserData.data.profileImageString else {
             
             if let randomImageCase = Profile.allCases.randomElement() {
                 
