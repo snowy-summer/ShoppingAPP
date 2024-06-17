@@ -38,6 +38,7 @@ final class SearchResultViewController: UIViewController {
         configureLayout()
         configuraCollectionView()
         configureHeaderView()
+        configureRefreshControl()
         binding()
         
     }
@@ -95,6 +96,15 @@ extension SearchResultViewController {
     
     @objc private func popVC() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleRefreshControl() {
+        
+        DispatchQueue.main.async{ [weak self] in
+            guard let self = self else { return }
+            searchViewModel.getData(where: 1)
+            searchResultCollectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -210,6 +220,13 @@ extension SearchResultViewController {
             return SearchResultSections.result.layoutSection
         }
         
+    }
+    
+    private func configureRefreshControl() {
+        searchResultCollectionView.refreshControl = UIRefreshControl()
+        searchResultCollectionView.refreshControl?.addTarget(self,
+                                                             action: #selector(handleRefreshControl),
+                                                             for: .valueChanged)
     }
     
     private func configureLayout() {
