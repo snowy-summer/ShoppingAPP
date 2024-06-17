@@ -17,6 +17,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     private let storeNameLabel = UILabel()
     private let titleLabel = UILabel()
     private let costLabel = UILabel()
+    private let activityIndicator = UIActivityIndicatorView()
     
     private(set) var buttonClicked = PassthroughSubject<Void, Never>()
     
@@ -39,11 +40,28 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
 
 extension SearchResultCollectionViewCell {
     
-    func updateContent(data: Item) {
+    func updateContent(data: Item, keyword: String) {
         
-        thumbnailImageView.kf.setImage(with: URL(string: data.image))
+        thumbnailImageView.kf.setImage( with: URL(string: data.image),
+                                        placeholder: nil,
+                                        options: nil,
+                                        progressBlock: nil) 
+        { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                self.activityIndicator.stopAnimating()
+                
+            case .failure(let error):
+                print("Error loading image: \(error)")
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        
         storeNameLabel.text = data.mallName
         titleLabel.text = data.title.removeHtmlTag
+        titleLabel.attributedText = data.title.removeHtmlTag.highlightOfAttributeText(by: keyword)
         
         if let price = Int(data.lprice)?.formatted() {
             costLabel.text = price + "원"
@@ -64,7 +82,7 @@ extension SearchResultCollectionViewCell {
 //MARK: - Configuration
 
 extension SearchResultCollectionViewCell {
-
+    
     private func configureHierarchy() {
         
         contentView.addSubview(thumbnailImageView)
@@ -72,6 +90,7 @@ extension SearchResultCollectionViewCell {
         contentView.addSubview(storeNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(costLabel)
+        contentView.addSubview(activityIndicator)
         
     }
     
@@ -89,6 +108,10 @@ extension SearchResultCollectionViewCell {
         titleLabel.numberOfLines = 2
         
         costLabel.configure(by: .boldTitle)
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = .medium
+        activityIndicator.startAnimating()
         
     }
     
@@ -139,6 +162,11 @@ extension SearchResultCollectionViewCell {
         costLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.directionalHorizontalEdges.equalToSuperview().inset(4)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(thumbnailImageView.snp.center)
+            make.size.equalTo(50)
         }
     }
 }

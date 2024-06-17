@@ -1,30 +1,19 @@
 //
-//  CapsuledButton.swift
+//  UIButton+Extension.swift
 //  ShoppingApp
 //
-//  Created by 최승범 on 6/13/24.
+//  Created by 최승범 on 6/17/24.
 //
 
 import UIKit
 
-final class CapsuledButton: UIButton {
+extension UIButton.Configuration {
     
-    init(title: String) {
-        super.init(frame: .zero)
-        
-        configuration = configure(title: title)
-        tintColor = .point
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configure(title: String) -> UIButton.Configuration {
+    static func capsuledButtonWithPointColor(title: String) -> UIButton.Configuration {
         
         var buttonConfiguration = UIButton.Configuration.filled()
         buttonConfiguration.cornerStyle = .capsule
+        buttonConfiguration.background.backgroundColor = .point
         
         var titleContainer = AttributeContainer()
         titleContainer.font = FontType.boldTitle.font
@@ -33,4 +22,5 @@ final class CapsuledButton: UIButton {
         
         return buttonConfiguration
     }
+    
 }

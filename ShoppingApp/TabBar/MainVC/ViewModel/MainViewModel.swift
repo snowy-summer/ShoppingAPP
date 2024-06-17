@@ -14,17 +14,24 @@ final class MainViewModel: ObservableObject {
     
     func updateRecordList(text: String) {
         
-        var oldList: [RecordList]
-        
-        if list == nil {
-            oldList = []
-        } else {
-            oldList = list!
+        if let recordList = UserData.data.searchRecordList {
+           
+            for record in recordList {
+                if record.name == text { return }
+            }
         }
         
-        let value = RecordList(name: text,
+        var oldList: [SearchRecord]
+        
+        oldList = list ?? []
+        
+        let value = SearchRecord(name: text,
                                date: Date())
         oldList.append(value)
+        oldList.sort { A, B in
+            A.date > B.date
+        }
+        
         list = oldList
         UserData.data.searchRecordList = oldList
     }

@@ -70,8 +70,7 @@ extension ProductWebViewController {
     
     private func configureNavigationBar() {
         
-        navigationItem.title = viewModel.item.title
-        
+        navigationItem.title = viewModel.item.title.removeHtmlTag
         let popViewControllerItem = UIBarButtonItem(image: UIImage(systemName: IconType.popViewIcon.iconString),
                                                     style: .plain,
                                                     target: self,

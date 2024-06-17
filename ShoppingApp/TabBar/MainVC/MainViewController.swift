@@ -92,7 +92,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         
         if let data = mainViewModel.list?[indexPath.row] {
-            cell.updateContent(text: data.name)
+            cell.updateContent(data: data)
         }
         return cell
     }

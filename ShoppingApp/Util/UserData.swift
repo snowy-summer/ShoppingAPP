@@ -39,11 +39,11 @@ final class UserData {
         }
     }
     
-    var searchRecordList: [RecordList]? {
+    var searchRecordList: [SearchRecord]? {
         get {
             
             guard let recordData = UserDefaults.standard.data(forKey: "searchRecord") else { return nil}
-            let data = try? JSONDecoder().decode([RecordList].self,
+            let data = try? JSONDecoder().decode([SearchRecord].self,
                                                  from: recordData )
             return data
         }

@@ -26,7 +26,6 @@ final class SettingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         settingTableView.reloadRows(at: [IndexPath(row: 0, section: 0),
                                          IndexPath(row: 0, section: 1)],
                                     with: .automatic)
@@ -64,6 +63,7 @@ extension SettingViewController {
 }
 
 //MARK: - TableViewDelegate, Datasource
+
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -13,7 +13,7 @@ final class ProfileSettingViewController: UIViewController {
     
     private let profileView = ProfileView()
     private let inputNicknameView = InputNicknameView()
-    private let completeButton = CapsuledButton(title: "완료")
+    private let completeButton = UIButton()
     
     private var profileViewModel = ProFileViewModel()
     private var cancellables = Set<AnyCancellable>()
@@ -35,6 +35,7 @@ final class ProfileSettingViewController: UIViewController {
         
         configureNavigationBar()
         configureHierarchy()
+        configureUI()
         configureProfileImage()
         setupGestureAndButtonActions()
         configureLayout()
@@ -123,6 +124,7 @@ extension ProfileSettingViewController {
         case .setting:
             
             completeButton.isHidden = true
+            inputNicknameView.nicknameTextField.text = UserData.data.nickname
             
             let saveViewControllerItem = UIBarButtonItem(title: "저장",
                                                         style: .plain,
@@ -156,6 +158,10 @@ extension ProfileSettingViewController {
         view.addSubview(profileView)
         view.addSubview(inputNicknameView)
         view.addSubview(completeButton)
+    }
+    
+    private func configureUI() {
+        completeButton.configuration = .capsuledButtonWithPointColor(title: "완료")
     }
     
     private func setupGestureAndButtonActions() {

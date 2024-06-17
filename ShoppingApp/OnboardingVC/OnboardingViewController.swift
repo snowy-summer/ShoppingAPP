@@ -12,7 +12,7 @@ final class OnboardingViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let backImageView = UIImageView()
-    private let startButton = CapsuledButton(title: "시작하기")
+    private let startButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +51,8 @@ extension OnboardingViewController {
         
         backImageView.image = .launch
         backImageView.contentMode = .scaleAspectFit
+        
+        startButton.configuration = .capsuledButtonWithPointColor(title: "시작하기")
         
     }
     

@@ -20,6 +20,7 @@ final class RecordListTableViewCell: UITableViewCell {
     
     private let recordIconImageView = UIImageView()
     private let nameLabel = UILabel()
+    private let dateLabel = UILabel()
     private let deleteButton = UIButton()
     weak var delegate: RecordListTableViewCellDelegate?
     
@@ -49,8 +50,12 @@ extension RecordListTableViewCell {
         return tableView.indexPath(for: self)
     }
 
-    func updateContent(text: String) {
-        nameLabel.text = text
+    func updateContent(data: SearchRecord) {
+        nameLabel.text = data.name
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd"
+        dateLabel.text = formatter.string(from: data.date)
     }
     
     @objc private func deleteList() {
@@ -70,6 +75,7 @@ extension RecordListTableViewCell {
         contentView.addSubview(recordIconImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(deleteButton)
+        contentView.addSubview(dateLabel)
     }
     
     private func configureUI() {
@@ -79,6 +85,9 @@ extension RecordListTableViewCell {
         
         deleteButton.setImage(UIImage(systemName: IconType.deleteIcon.iconString), for: .normal)
         deleteButton.tintColor = .title
+        
+        dateLabel.font = FontType.caption.font
+        dateLabel.textColor = FontType.caption.color
     }
     
     private func configureGestureAndButtonActions() {
@@ -105,6 +114,11 @@ extension RecordListTableViewCell {
         
         deleteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(20)
+            make.verticalEdges.equalToSuperview()
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(deleteButton.snp.leading).inset(-8)
             make.verticalEdges.equalToSuperview()
         }
     }

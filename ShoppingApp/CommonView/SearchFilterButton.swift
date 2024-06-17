@@ -35,8 +35,8 @@ final class SearchFilterButton: UIButton {
     func updateContent(state: SearchFilterButtonState) {
       
         var buttonConfiguration = UIButton.Configuration.filled()
-        
         var titleContainer = AttributeContainer()
+        
         titleContainer.font = FontType.normaltitle.font
         titleContainer.foregroundColor = state.titleColor
         

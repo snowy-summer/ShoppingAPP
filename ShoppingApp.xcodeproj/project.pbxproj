@@ -16,7 +16,6 @@
 		6B18195B2C1B0B78009B0236 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B18195A2C1B0B78009B0236 /* Kingfisher */; };
 		6B18195E2C1B0B85009B0236 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6B18195D2C1B0B85009B0236 /* SnapKit */; };
 		6B1819612C1B0BAC009B0236 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B1819602C1B0BAC009B0236 /* IQKeyboardManagerSwift */; };
-		6B1819662C1B220B009B0236 /* CapsuledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819652C1B220B009B0236 /* CapsuledButton.swift */; };
 		6B1819682C1B2388009B0236 /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819672C1B2387009B0236 /* ProfileSettingViewController.swift */; };
 		6B18196B2C1B261C009B0236 /* IconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18196A2C1B261C009B0236 /* IconType.swift */; };
 		6B18196D2C1B271C009B0236 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B18196C2C1B271C009B0236 /* ProfileType.swift */; };
@@ -40,7 +39,7 @@
 		6B1819A12C1D6A53009B0236 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A02C1D6A53009B0236 /* SearchResultCollectionViewCell.swift */; };
 		6B1819A42C1D7C53009B0236 /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A32C1D7C53009B0236 /* ShoppingList.swift */; };
 		6B1819A62C1D7DAF009B0236 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A52C1D7DAF009B0236 /* SearchViewModel.swift */; };
-		6B1819A82C1D831C009B0236 /* RecordList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A72C1D831C009B0236 /* RecordList.swift */; };
+		6B1819A82C1D831C009B0236 /* SearchRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A72C1D831C009B0236 /* SearchRecord.swift */; };
 		6B1819AA2C1D9182009B0236 /* SearchFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819A92C1D9182009B0236 /* SearchFilterCollectionViewCell.swift */; };
 		6B1819AC2C1D9E63009B0236 /* SearchFilterButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819AB2C1D9E63009B0236 /* SearchFilterButtonState.swift */; };
 		6B1819AE2C1D9F49009B0236 /* URLList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B1819AD2C1D9F49009B0236 /* URLList.swift */; };
@@ -55,6 +54,7 @@
 		6B3E4D6D2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E4D6C2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift */; };
 		6B3E4D6F2C1EF60A00C0C4A6 /* SettingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E4D6E2C1EF60A00C0C4A6 /* SettingList.swift */; };
 		6B3E4D712C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E4D702C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift */; };
+		6B3E4D972C1FCE8B00C0C4A6 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +65,6 @@
 		6B18194B2C1AEB10009B0236 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B18194E2C1AEB10009B0236 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B1819502C1AEB10009B0236 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B1819652C1B220B009B0236 /* CapsuledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuledButton.swift; sourceTree = "<group>"; };
 		6B1819672C1B2387009B0236 /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		6B18196A2C1B261C009B0236 /* IconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconType.swift; sourceTree = "<group>"; };
 		6B18196C2C1B271C009B0236 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
@@ -89,7 +88,7 @@
 		6B1819A02C1D6A53009B0236 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B1819A32C1D7C53009B0236 /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
 		6B1819A52C1D7DAF009B0236 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		6B1819A72C1D831C009B0236 /* RecordList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordList.swift; sourceTree = "<group>"; };
+		6B1819A72C1D831C009B0236 /* SearchRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecord.swift; sourceTree = "<group>"; };
 		6B1819A92C1D9182009B0236 /* SearchFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B1819AB2C1D9E63009B0236 /* SearchFilterButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterButtonState.swift; sourceTree = "<group>"; };
 		6B1819AD2C1D9F49009B0236 /* URLList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLList.swift; sourceTree = "<group>"; };
@@ -104,6 +103,7 @@
 		6B3E4D6C2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNormalTableCell.swift; sourceTree = "<group>"; };
 		6B3E4D6E2C1EF60A00C0C4A6 /* SettingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingList.swift; sourceTree = "<group>"; };
 		6B3E4D702C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewControllerType.swift; sourceTree = "<group>"; };
+		6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +157,6 @@
 		6B1819642C1B21F7009B0236 /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
-				6B1819652C1B220B009B0236 /* CapsuledButton.swift */,
 				6B1819B32C1DC4F9009B0236 /* SearchFilterButton.swift */,
 				6B1819702C1B39A1009B0236 /* ProfileView.swift */,
 				6B1819722C1B39F8009B0236 /* InputNicknameView.swift */,
@@ -196,6 +195,7 @@
 				6B1819812C1C0576009B0236 /* Identifier+Extension.swift */,
 				6B1819B62C1DCE65009B0236 /* UILabel+Extension.swift */,
 				6B3E4D682C1EBD6C00C0C4A6 /* String+Extension.swift */,
+				6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,7 +216,6 @@
 			children = (
 				6B18197F2C1BFF0F009B0236 /* MainViewController.swift */,
 				6B1819982C1D5575009B0236 /* RecordListHeaderView.swift */,
-				6B1819942C1C59B7009B0236 /* RecordListTableViewCell.swift */,
 				6B18199A2C1D623B009B0236 /* SearchResultViewController.swift */,
 				6B1819B12C1DC366009B0236 /* SearchResultHeaderView.swift */,
 				6B3E4D642C1EAD0D00C0C4A6 /* ProductWebViewController.swift */,
@@ -295,7 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				6B1819A32C1D7C53009B0236 /* ShoppingList.swift */,
-				6B1819A72C1D831C009B0236 /* RecordList.swift */,
+				6B1819A72C1D831C009B0236 /* SearchRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,6 +302,7 @@
 		6B1819B52C1DCB45009B0236 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				6B1819942C1C59B7009B0236 /* RecordListTableViewCell.swift */,
 				6B1819A92C1D9182009B0236 /* SearchFilterCollectionViewCell.swift */,
 				6B1819A02C1D6A53009B0236 /* SearchResultCollectionViewCell.swift */,
 			);
@@ -394,12 +394,13 @@
 				6B1819752C1B45D1009B0236 /* FontType.swift in Sources */,
 				6B3E4D6B2C1ECF1600C0C4A6 /* SettingProfileTableCell.swift in Sources */,
 				6B1819952C1C59B7009B0236 /* RecordListTableViewCell.swift in Sources */,
+				6B3E4D972C1FCE8B00C0C4A6 /* UIButton+Extension.swift in Sources */,
 				6B18196B2C1B261C009B0236 /* IconType.swift in Sources */,
 				6B3E4D652C1EAD0D00C0C4A6 /* ProductWebViewController.swift in Sources */,
 				6B1819A42C1D7C53009B0236 /* ShoppingList.swift in Sources */,
 				6B18198F2C1C2CD8009B0236 /* TabBarController.swift in Sources */,
 				6B18197A2C1BCE83009B0236 /* NicknameChecker.swift in Sources */,
-				6B1819A82C1D831C009B0236 /* RecordList.swift in Sources */,
+				6B1819A82C1D831C009B0236 /* SearchRecord.swift in Sources */,
 				6B18197C2C1BDB1A009B0236 /* NicknameState.swift in Sources */,
 				6B1819932C1C2E63009B0236 /* SettingViewController.swift in Sources */,
 				6B18197E2C1BFEED009B0236 /* SelectProfileViewController.swift in Sources */,
@@ -407,7 +408,6 @@
 				6B18198A2C1C0690009B0236 /* ImageCollectionViewCell.swift in Sources */,
 				6B1819992C1D5575009B0236 /* RecordListHeaderView.swift in Sources */,
 				6B3E4D672C1EB12500C0C4A6 /* WebViewModel.swift in Sources */,
-				6B1819662C1B220B009B0236 /* CapsuledButton.swift in Sources */,
 				6B3E4D712C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift in Sources */,
 				6B3E4D6F2C1EF60A00C0C4A6 /* SettingList.swift in Sources */,
 				6B1819802C1BFF0F009B0236 /* MainViewController.swift in Sources */,

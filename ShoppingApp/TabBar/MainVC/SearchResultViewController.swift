@@ -117,14 +117,17 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         }
         
         let data = searchViewModel.shoppingList.items[indexPath.row]
-        cell.updateContent(data: data)
+        
+        cell.updateContent(data: data,
+                           keyword: searchViewModel.keyword)
         
         cell.buttonClicked
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 
                 searchViewModel.changeLike(productId: data.productId)
-                cell.updateContent(data: data)
+                cell.updateContent(data: data,
+                                   keyword: searchViewModel.keyword)
             }.store(in: &cancellables)
         
         return cell
