@@ -56,6 +56,7 @@
 		6B44AACC2C212E4C0079C7C2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AACB2C212E4C0079C7C2 /* Kingfisher */; };
 		6B44AACF2C212E550079C7C2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AACE2C212E550079C7C2 /* Alamofire */; };
 		6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44AAD02C213A580079C7C2 /* NetworkManager.swift */; };
+		6BC7E4D82C216DC600FC1D22 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC7E4D72C216DC600FC1D22 /* SettingViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		6B3E4D702C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewControllerType.swift; sourceTree = "<group>"; };
 		6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6B44AAD02C213A580079C7C2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6BC7E4D72C216DC600FC1D22 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,8 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				6B1819922C1C2E63009B0236 /* SettingViewController.swift */,
-				6B3E4D6A2C1ECF1600C0C4A6 /* SettingProfileTableCell.swift */,
-				6B3E4D6C2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift */,
+				6BC7E4D92C21820500FC1D22 /* ViewModel */,
+				6BC7E4D62C216D3900FC1D22 /* Cell */,
 			);
 			path = SettingVC;
 			sourceTree = "<group>";
@@ -310,6 +312,23 @@
 				6B1819A02C1D6A53009B0236 /* SearchResultCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		6BC7E4D62C216D3900FC1D22 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6B3E4D6A2C1ECF1600C0C4A6 /* SettingProfileTableCell.swift */,
+				6B3E4D6C2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6BC7E4D92C21820500FC1D22 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6BC7E4D72C216DC600FC1D22 /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,6 +432,7 @@
 				6B3E4D672C1EB12500C0C4A6 /* WebViewModel.swift in Sources */,
 				6B3E4D712C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift in Sources */,
 				6B3E4D6F2C1EF60A00C0C4A6 /* SettingList.swift in Sources */,
+				6BC7E4D82C216DC600FC1D22 /* SettingViewModel.swift in Sources */,
 				6B1819802C1BFF0F009B0236 /* MainViewController.swift in Sources */,
 				6B1819AA2C1D9182009B0236 /* SearchFilterCollectionViewCell.swift in Sources */,
 				6B1819472C1AEB0F009B0236 /* OnboardingViewController.swift in Sources */,

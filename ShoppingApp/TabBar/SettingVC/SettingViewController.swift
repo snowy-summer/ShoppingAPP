@@ -11,6 +11,7 @@ import SnapKit
 final class SettingViewController: UIViewController {
     
     private let settingTableView = UITableView()
+    private let settingViewModel = SettingViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ final class SettingViewController: UIViewController {
         
         settingTableView.reloadRows(at: [IndexPath(row: 0, section: 0),
                                          IndexPath(row: 0, section: 1)],
-                                    with: .automatic)
+                                    with: .none)
     }
 }
 
@@ -41,8 +42,11 @@ extension SettingViewController {
                                               preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "확인",
-                                          style: .destructive) { _ in
-            UserData.data.resetData()
+                                          style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            
+            settingViewModel.resetData()
+            
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let sceneDelegate = windowScene?.delegate as? SceneDelegate
             let navigationController = UINavigationController(rootViewController: OnboardingViewController())
@@ -188,7 +192,6 @@ extension SettingViewController {
                                   forCellReuseIdentifier: SettingProfileTableCell.identifier)
         settingTableView.register(SettingNormalTableCell.self,
                                   forCellReuseIdentifier: SettingNormalTableCell.identifier)
-        
         
     }
     

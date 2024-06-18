@@ -17,6 +17,8 @@ final class SearchViewModel: ObservableObject {
     @Published private(set) var productCount = 1
     @Published private(set) var filterType = SearchFilter.sim
     private(set) var keyword: String
+    var selectedIndexPath: IndexPath?
+    
     private var cancellables = Set<AnyCancellable>()
     private var networkManager = NetworkManager()
     

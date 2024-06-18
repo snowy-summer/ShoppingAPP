@@ -46,9 +46,9 @@ final class SearchResultViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if searchViewModel.shoppingList.items.isEmpty { return }
-        
-        searchResultCollectionView.reloadData()
+        if let indexPath = searchViewModel.selectedIndexPath {
+            searchResultCollectionView.reloadItems(at: [indexPath])
+        }
     }
     
 }
@@ -139,7 +139,7 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        
+        searchViewModel.selectedIndexPath = indexPath
         navigationController?.pushViewController(ProductWebViewController(item: searchViewModel.shoppingList.items[indexPath.row]),
                                                  animated: true)
     }

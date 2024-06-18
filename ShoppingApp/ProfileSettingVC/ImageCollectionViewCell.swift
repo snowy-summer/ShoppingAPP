@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 final class ImageCollectionViewCell: UICollectionViewCell {
-    private let profileView = ProfileView()
     
+    private let profileView = ProfileView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
