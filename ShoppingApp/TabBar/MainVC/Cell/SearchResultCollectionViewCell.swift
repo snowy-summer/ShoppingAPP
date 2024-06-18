@@ -6,9 +6,14 @@
 //
 
 import UIKit
-import Combine
 import SnapKit
 import Kingfisher
+
+protocol SearchResultCollectionViewCellDelegate: AnyObject {
+    
+    func likeButtonClicked(indexPath: IndexPath)
+    
+}
 
 final class SearchResultCollectionViewCell: UICollectionViewCell {
     
@@ -19,7 +24,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     private let costLabel = UILabel()
     private let activityIndicator = UIActivityIndicatorView()
     
-    private(set) var buttonClicked = PassthroughSubject<Void, Never>()
+    weak var delegate: SearchResultCollectionViewCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,7 +50,7 @@ extension SearchResultCollectionViewCell {
         thumbnailImageView.kf.setImage( with: URL(string: data.image),
                                         placeholder: nil,
                                         options: nil,
-                                        progressBlock: nil) 
+                                        progressBlock: nil)
         { [weak self] result in
             guard let self = self else { return }
             
@@ -74,8 +79,18 @@ extension SearchResultCollectionViewCell {
         }
     }
     
+    private func getIndexPath() -> IndexPath? {
+            guard let collectionView = self.superview as? UICollectionView else {
+                return nil
+            }
+            
+            return collectionView.indexPath(for: self)
+        }
+    
     @objc private func likeButtonClicked() {
-        buttonClicked.send()
+        guard let indexPath = getIndexPath() else { return }
+        
+        delegate?.likeButtonClicked(indexPath: indexPath)
     }
 }
 

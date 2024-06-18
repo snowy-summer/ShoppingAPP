@@ -127,18 +127,10 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         }
         
         let data = searchViewModel.shoppingList.items[indexPath.row]
-        
+    
+        cell.delegate = self
         cell.updateContent(data: data,
                            keyword: searchViewModel.keyword)
-        
-        cell.buttonClicked
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                
-                searchViewModel.changeLike(productId: data.productId)
-                cell.updateContent(data: data,
-                                   keyword: searchViewModel.keyword)
-            }.store(in: &cancellables)
         
         return cell
         
@@ -149,6 +141,19 @@ extension SearchResultViewController: UICollectionViewDelegate, UICollectionView
         
         navigationController?.pushViewController(ProductWebViewController(item: searchViewModel.shoppingList.items[indexPath.row]),
                                                  animated: true)
+    }
+    
+}
+
+//MARK: - SearchResultCollectionViewCellDelegate
+
+extension SearchResultViewController: SearchResultCollectionViewCellDelegate {
+    
+    func likeButtonClicked(indexPath: IndexPath) {
+        
+        let data = searchViewModel.shoppingList.items[indexPath.row]
+        searchViewModel.changeLike(productId: data.productId)
+        searchResultCollectionView.reloadItems(at: [indexPath])
     }
     
 }
