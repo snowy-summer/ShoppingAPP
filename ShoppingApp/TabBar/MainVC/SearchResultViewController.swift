@@ -42,12 +42,7 @@ final class SearchResultViewController: UIViewController {
         binding()
         
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        searchResultCollectionView.collectionViewLayout = createCollectionViewLayout()
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -70,6 +65,12 @@ extension SearchResultViewController {
                 
                 searchResultHeaderView.updateContent(data: shoppingList.total)
                 searchResultCollectionView.reloadData()
+                
+                if searchViewModel.productCount == 1  && !shoppingList.items.isEmpty {
+                    searchResultCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0),
+                                                            at: .top,
+                                                            animated: false)
+                }
             }.store(in: &cancellables)
         
         searchViewModel.$productCount
@@ -196,8 +197,8 @@ extension SearchResultViewController {
     
     private func configureHierarchy() {
         
-        view.addSubview(searchResultCollectionView)
         view.addSubview(searchResultHeaderView)
+        view.addSubview(searchResultCollectionView)
     }
     
     private func configureHeaderView() {

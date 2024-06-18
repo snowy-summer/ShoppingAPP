@@ -12,20 +12,22 @@ struct NicknameChecker {
     static func resultOfNickname(name: String) -> NicknameState {
             
         let nicknameType = NicknameState.success
+        let specialChar: Set = ["@", "#", "$", "%"]
+        var containedChar = Set<String>()
         
         if name.count < 2 {
             return .underTheCount
         } else if name.count >= 10 {
             return .overTheCount
         }
-        
-        let specialChar: Set = ["@", "#", "$", "%"]
-        
+       
         for value in specialChar {
             if name.contains(value) {
-                return .containSpecial(value)
+                containedChar.insert(value)
             }
         }
+        
+        if !containedChar.isEmpty { return .containSpecial(containedChar.joined(separator: ", "))}
         
         if name.rangeOfCharacter(from: .decimalDigits) != nil {
             return .containNumber

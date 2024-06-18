@@ -161,7 +161,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         
-        
     }
     
 }

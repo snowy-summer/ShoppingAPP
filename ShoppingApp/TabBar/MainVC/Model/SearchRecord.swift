@@ -8,6 +8,7 @@
 import Foundation
 
 struct SearchRecord: Codable {
+    
     let name: String
     let date: Date
 }
