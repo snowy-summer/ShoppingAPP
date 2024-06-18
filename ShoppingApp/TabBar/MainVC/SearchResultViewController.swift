@@ -78,7 +78,7 @@ extension SearchResultViewController {
                 
                 if !searchViewModel.shoppingList.items.isEmpty && newValue == 1 { return }
                 
-                searchViewModel.getData(where: newValue)
+                searchViewModel.fetchData(where: newValue)
                 
             }.store(in: &cancellables)
         
@@ -89,7 +89,7 @@ extension SearchResultViewController {
                 if searchViewModel.filterType == newValue { return }
                 
                 searchViewModel.resetProductCount()
-                searchViewModel.getData(by: newValue)
+                searchViewModel.fetchData(by: newValue)
                 
             }.store(in: &cancellables)
     }
@@ -102,7 +102,7 @@ extension SearchResultViewController {
         
         DispatchQueue.main.async{ [weak self] in
             guard let self = self else { return }
-            searchViewModel.getData(where: 1)
+            searchViewModel.fetchData(where: 1)
             searchResultCollectionView.refreshControl?.endRefreshing()
         }
     }

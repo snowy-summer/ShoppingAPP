@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import Alamofire
 
 final class SearchViewModel: ObservableObject {
     
@@ -18,6 +17,8 @@ final class SearchViewModel: ObservableObject {
     @Published private(set) var productCount = 1
     @Published private(set) var filterType = SearchFilter.sim
     private(set) var keyword: String
+    private var cancellables = Set<AnyCancellable>()
+    private var networkManager = NetworkManager()
     
     init(keyword: String) {
         self.keyword = keyword
@@ -41,7 +42,7 @@ final class SearchViewModel: ObservableObject {
             UserData.data.like = [productId]
             return
         }
-       
+        
         var setData = Set(likeArray)
         if setData.contains(productId) {
             setData.remove(productId)
@@ -52,68 +53,56 @@ final class SearchViewModel: ObservableObject {
         UserData.data.like = Array(setData)
         
     }
-  
+    
     
     //MARK: - 데이터 통신
     
-    func getData(where start: Int) {
+    func fetchData(where start: Int) {
         
         let naverShopping = URLList.naverShopping(keyword, start, filterType.rawValue)
-        guard let url = naverShopping.url else {
-            print("잘못된 url입니다.")
-            return
-        }
         
-        AF.request(url,
-                   headers: naverShopping.headers)
-        .responseDecodable(of: ShoppingList.self) {[weak self] response in
-            guard let self = self else { return }
-            
-            switch response.result {
-                
-            case .success(let data):
-                
-                if shoppingList.items.isEmpty {
-                    shoppingList = data
-                    return
+        networkManager.getData(what: naverShopping)
+            .sink(
+                receiveCompletion: { completion in
+                    if case let .failure(error) = completion {
+                        print(error)
+                    }
+                },
+                receiveValue: { [weak self] data in
+                    guard let self = self else { return }
+                    if self.shoppingList.items.isEmpty {
+                        self.shoppingList = data
+                    } else if start != 1 {
+                        self.shoppingList.items.append(contentsOf: data.items)
+                    }
                 }
-                
-                if start != 1 {
-                    shoppingList.items.append(contentsOf: data.items)
-                    return
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
+            )
+            .store(in: &cancellables)
+        
     }
     
-    func getData(by filter: SearchFilter) {
-      
+    func fetchData(by filter: SearchFilter) {
+        
         let naverShopping = URLList.naverShopping(keyword,
                                                   productCount,
                                                   filter.rawValue)
-        guard let url = naverShopping.url else {
-            print("잘못된 url입니다.")
-            return
-        }
+
+        networkManager.getData(what: naverShopping)
+            .sink(
+                receiveCompletion: { completion in
+                    if case let .failure(error) = completion {
+                        print(error)
+                    }
+                },
+                receiveValue: { [weak self] data in
+                    guard let self = self else { return }
+                    shoppingList = data
+                }
+            )
+            .store(in: &cancellables)
         
-        AF.request(url,
-                   headers: naverShopping.headers)
-        .responseDecodable(of: ShoppingList.self) {[weak self] response in
-            guard let self = self else { return }
-            
-            switch response.result {
-                
-            case .success(let data):
-                
-                shoppingList = data
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
-    
 }
+
+
+

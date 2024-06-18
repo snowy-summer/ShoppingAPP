@@ -55,6 +55,7 @@
 		6B44AAC92C212E460079C7C2 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AAC82C212E460079C7C2 /* IQKeyboardManagerSwift */; };
 		6B44AACC2C212E4C0079C7C2 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AACB2C212E4C0079C7C2 /* Kingfisher */; };
 		6B44AACF2C212E550079C7C2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AACE2C212E550079C7C2 /* Alamofire */; };
+		6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44AAD02C213A580079C7C2 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		6B3E4D6E2C1EF60A00C0C4A6 /* SettingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingList.swift; sourceTree = "<group>"; };
 		6B3E4D702C1F100200C0C4A6 /* ProfileSettingViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewControllerType.swift; sourceTree = "<group>"; };
 		6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		6B44AAD02C213A580079C7C2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			children = (
 				6B1819772C1BCA2C009B0236 /* UserData.swift */,
 				6B1819792C1BCE83009B0236 /* NicknameChecker.swift */,
+				6B44AAD02C213A580079C7C2 /* NetworkManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				6B1819972C1C5B05009B0236 /* MainViewModel.swift in Sources */,
 				6B1819AC2C1D9E63009B0236 /* SearchFilterButtonState.swift in Sources */,
 				6B3E4D6D2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift in Sources */,
+				6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */,
 				6B1819B42C1DC4F9009B0236 /* SearchFilterButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
