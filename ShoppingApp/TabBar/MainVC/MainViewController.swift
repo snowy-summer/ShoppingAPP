@@ -67,6 +67,9 @@ extension MainViewController: UISearchBarDelegate {
         
         guard let text = searchBar.text else { return }
         searchBar.text = .none
+        let removeWhiteSpaceText = text.trimmingCharacters(in: .whitespaces)
+        if removeWhiteSpaceText.isEmpty { return }
+        
         mainViewModel.updateRecordList(text: text)
         
         navigationController?.pushViewController(SearchResultViewController(keyword: text), animated: true)

@@ -33,25 +33,19 @@ final class SettingViewController: UIViewController {
     }
 }
 
+//MARK: - Method
+
 extension SettingViewController {
     
-    private func showWithdrawAlert() {
+    private func showWithdrawAlert(completionHandler: @escaping () -> Void) {
         
         let withdrawAlert = UIAlertController(title: "탈퇴하기",
                                               message: "탈퇴를 하면 데이터가 모두 초기화됩니다.\n 탈퇴하시겠습니까?",
                                               preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "확인",
-                                          style: .destructive) { [weak self] _ in
-            guard let self = self else { return }
-            
-            settingViewModel.resetData()
-            
-            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let sceneDelegate = windowScene?.delegate as? SceneDelegate
-            let navigationController = UINavigationController(rootViewController: OnboardingViewController())
-            sceneDelegate?.window?.rootViewController = navigationController
-            sceneDelegate?.window?.makeKeyAndVisible()
+                                          style: .destructive) { _ in
+            completionHandler()
         }
         
         let cancelAction = UIAlertAction(title: "취소",
@@ -62,6 +56,15 @@ extension SettingViewController {
         
         self.present(withdrawAlert,
                      animated: false)
+    }
+    
+    private func navigateToOnboarding() {
+        
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let navigationController = UINavigationController(rootViewController: OnboardingViewController())
+        sceneDelegate?.window?.rootViewController = navigationController
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
 }
@@ -153,7 +156,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 return
                 
             case .withdraw:
-                showWithdrawAlert()
+                showWithdrawAlert { [weak self] in
+                    guard let self = self else { return }
+                    settingViewModel.resetData()
+                    navigateToOnboarding()
+                }
                 return
                 
             default:

@@ -14,6 +14,8 @@ final class MainViewModel: ObservableObject {
     
     func updateRecordList(text: String) {
         
+        let text = text.lowercased()
+        
         if let recordList = UserData.data.searchRecordList {
            
             for record in recordList {

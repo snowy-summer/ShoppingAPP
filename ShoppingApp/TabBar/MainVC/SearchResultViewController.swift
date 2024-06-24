@@ -159,6 +159,8 @@ extension SearchResultViewController: SearchResultCollectionViewCellDelegate {
     
 }
 
+//MARK: - UICollectionViewDataSourcePrefetching
+
 extension SearchResultViewController: UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView,
