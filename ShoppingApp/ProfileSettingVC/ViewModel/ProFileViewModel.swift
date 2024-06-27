@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class ProFileViewModel: ObservableObject {
+final class ProFileViewModel {
     
     @Published private(set) var imageString: String? = UserData.data.profileImageString
     @Published private(set) var nickname: String? = UserData.data.nickname

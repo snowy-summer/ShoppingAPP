@@ -32,6 +32,13 @@ final class MainViewController: UIViewController {
         configureTableView()
         binding()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let nickname = UserData.data.nickname else { return }
+        navigationItem.title = "\(nickname)'s MEANING OUT"
+    }
 }
 
 //MARK: - Method

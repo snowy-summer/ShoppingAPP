@@ -58,7 +58,7 @@ final class UserData {
         get {
             
             guard let recordData = UserDefaults.standard.stringArray(forKey: "like") else { return nil}
-           
+            
             return recordData
         }
         set {
@@ -73,13 +73,9 @@ final class UserData {
     }
     
     func resetData() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
         
-        UserDefaults.standard.removeObject(forKey: "signUpDate")
-        UserDefaults.standard.removeObject(forKey: "profile")
-        UserDefaults.standard.removeObject(forKey: "nickname")
-        UserDefaults.standard.removeObject(forKey: "searchRecord")
-        UserDefaults.standard.removeObject(forKey: "like")
     }
-    
-    
 }

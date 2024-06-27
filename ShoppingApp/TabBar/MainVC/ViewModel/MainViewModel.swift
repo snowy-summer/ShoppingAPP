@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class MainViewModel: ObservableObject {
+final class MainViewModel {
     
     @Published private(set) var list = UserData.data.searchRecordList
     

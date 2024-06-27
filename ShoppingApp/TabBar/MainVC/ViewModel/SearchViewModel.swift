@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class SearchViewModel: ObservableObject {
+final class SearchViewModel {
     
     @Published private(set) var shoppingList = ShoppingList(total: 0,
                                                             start: 0,

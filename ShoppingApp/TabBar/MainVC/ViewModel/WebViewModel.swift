@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class WebViewModel: ObservableObject {
+final class WebViewModel {
     
     private(set) var item: Item
     

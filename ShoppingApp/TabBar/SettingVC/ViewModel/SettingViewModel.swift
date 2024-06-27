@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SettingViewModel: ObservableObject {
+final class SettingViewModel {
     
     func resetData() {
         UserData.data.resetData()
