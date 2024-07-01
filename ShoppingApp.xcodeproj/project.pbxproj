@@ -57,6 +57,7 @@
 		6B44AACF2C212E550079C7C2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6B44AACE2C212E550079C7C2 /* Alamofire */; };
 		6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B44AAD02C213A580079C7C2 /* NetworkManager.swift */; };
 		6BC7E4D82C216DC600FC1D22 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC7E4D72C216DC600FC1D22 /* SettingViewModel.swift */; };
+		6BE741712C322D09009DEE99 /* QueryOfNaverShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE741702C322D09009DEE99 /* QueryOfNaverShopping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		6B3E4D962C1FCE8B00C0C4A6 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		6B44AAD02C213A580079C7C2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6BC7E4D72C216DC600FC1D22 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		6BE741702C322D09009DEE99 /* QueryOfNaverShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryOfNaverShopping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				6B1819842C1C05C9009B0236 /* ProfileSettingVC */,
 				6B18198D2C1C2CA7009B0236 /* TabBar */,
 				6B1819762C1BC9EC009B0236 /* Util */,
+				6BE7416F2C322CE5009DEE99 /* Network */,
 				6B1819692C1B260B009B0236 /* Enum */,
 				6B1819642C1B21F7009B0236 /* CommonView */,
 				6B1819832C1C057C009B0236 /* Extension */,
@@ -171,7 +174,6 @@
 		6B1819692C1B260B009B0236 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
-				6B1819AD2C1D9F49009B0236 /* URLList.swift */,
 				6B18196A2C1B261C009B0236 /* IconType.swift */,
 				6B1819AB2C1D9E63009B0236 /* SearchFilterButtonState.swift */,
 				6B1819AF2C1DAFA6009B0236 /* SearchResultSections.swift */,
@@ -189,7 +191,6 @@
 			children = (
 				6B1819772C1BCA2C009B0236 /* UserData.swift */,
 				6B1819792C1BCE83009B0236 /* NicknameChecker.swift */,
-				6B44AAD02C213A580079C7C2 /* NetworkManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -331,6 +332,16 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		6BE7416F2C322CE5009DEE99 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6B1819AD2C1D9F49009B0236 /* URLList.swift */,
+				6B44AAD02C213A580079C7C2 /* NetworkManager.swift */,
+				6BE741702C322D09009DEE99 /* QueryOfNaverShopping.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -457,6 +468,7 @@
 				6B3E4D6D2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift in Sources */,
 				6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */,
 				6B1819B42C1DC4F9009B0236 /* SearchFilterButton.swift in Sources */,
+				6BE741712C322D09009DEE99 /* QueryOfNaverShopping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
