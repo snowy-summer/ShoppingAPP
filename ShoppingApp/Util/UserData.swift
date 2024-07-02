@@ -9,40 +9,48 @@ import Foundation
 
 final class UserData {
     
+    private enum Key: String {
+        case signUpDate
+        case profile
+        case nickname
+        case searchRecord
+        case like
+    }
+    
     private init() { }
     static let data = UserData()
     
     var signUpDate: String? {
         get {
-            return UserDefaults.standard.string(forKey: "signUpDate")
+            return UserDefaults.standard.string(forKey: Key.signUpDate.rawValue)
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "signUpDate")
+            UserDefaults.standard.setValue(newValue, forKey: Key.signUpDate.rawValue)
         }
     }
     
     var profileImageString: String? {
         get {
-            return UserDefaults.standard.string(forKey: "profile")
+            return UserDefaults.standard.string(forKey: Key.profile.rawValue)
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "profile")
+            UserDefaults.standard.setValue(newValue, forKey: Key.profile.rawValue)
         }
     }
     
     var nickname: String? {
         get {
-            return UserDefaults.standard.string(forKey: "nickname")
+            return UserDefaults.standard.string(forKey: Key.nickname.rawValue)
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "nickname")
+            UserDefaults.standard.setValue(newValue, forKey: Key.nickname.rawValue)
         }
     }
     
     var searchRecordList: [SearchRecord]? {
         get {
             
-            guard let recordData = UserDefaults.standard.data(forKey: "searchRecord") else { return nil}
+            guard let recordData = UserDefaults.standard.data(forKey: Key.searchRecord.rawValue) else { return nil}
             let data = try? JSONDecoder().decode([SearchRecord].self,
                                                  from: recordData )
             return data
@@ -50,26 +58,26 @@ final class UserData {
         set {
             
             let data = try? JSONEncoder().encode(newValue)
-            UserDefaults.standard.setValue(data, forKey: "searchRecord")
+            UserDefaults.standard.setValue(data, forKey: Key.searchRecord.rawValue)
         }
     }
     
     var like: [String]? {
         get {
             
-            guard let recordData = UserDefaults.standard.stringArray(forKey: "like") else { return nil}
+            guard let recordData = UserDefaults.standard.stringArray(forKey: Key.like.rawValue) else { return nil}
             
             return recordData
         }
         set {
             
-            UserDefaults.standard.setValue(newValue, forKey: "like")
+            UserDefaults.standard.setValue(newValue, forKey: Key.like.rawValue)
             
         }
     }
     
     func deleteSearchRecordList() {
-        UserDefaults.standard.removeObject(forKey: "searchRecord")
+        UserDefaults.standard.removeObject(forKey: Key.searchRecord.rawValue)
     }
     
     func resetData() {

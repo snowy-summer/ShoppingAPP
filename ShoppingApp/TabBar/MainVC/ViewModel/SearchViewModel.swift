@@ -63,7 +63,7 @@ final class SearchViewModel {
         
         let naverShopping = URLList.naverShopping(keyword, start, filterType.rawValue)
         
-        networkManager.getData(what: naverShopping)
+        networkManager.getData(what: naverShopping, ShoppingList.self)
             .sink(
                 receiveCompletion: { completion in
                     if case let .failure(error) = completion {
@@ -72,11 +72,19 @@ final class SearchViewModel {
                 },
                 receiveValue: { [weak self] data in
                     guard let self = self else { return }
-                    if self.shoppingList.items.isEmpty {
-                        self.shoppingList = data
-                    } else if start != 1 {
-                        self.shoppingList.items.append(contentsOf: data.items)
+                    
+                    if let list = data as? ShoppingList {
+                        if shoppingList.items.isEmpty {
+                            
+                            shoppingList = list
+                        } else if start != 1 {
+                            shoppingList.items.append(contentsOf: list.items)
+                        }
+                    } else {
+                        print(data)
                     }
+                    
+                    
                 }
             )
             .store(in: &cancellables)
@@ -88,8 +96,8 @@ final class SearchViewModel {
         let naverShopping = URLList.naverShopping(keyword,
                                                   productCount,
                                                   filter.rawValue)
-
-        networkManager.getData(what: naverShopping)
+        
+        networkManager.getData(what: naverShopping, ShoppingList.self)
             .sink(
                 receiveCompletion: { completion in
                     if case let .failure(error) = completion {
@@ -98,7 +106,13 @@ final class SearchViewModel {
                 },
                 receiveValue: { [weak self] data in
                     guard let self = self else { return }
-                    shoppingList = data
+                    
+                    if let list = data as? ShoppingList {
+                        shoppingList = list
+                    } else {
+                        print(data)
+                    }
+                    
                 }
             )
             .store(in: &cancellables)

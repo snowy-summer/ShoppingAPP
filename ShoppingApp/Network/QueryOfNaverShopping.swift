@@ -28,7 +28,7 @@ struct QueryOfNaverShopping {
         queryItems.append(URLQueryItem(name: "query",
                                        value: query))
         queryItems.append(URLQueryItem(name: "start",
-                                       value: query))
+                                       value: start))
         queryItems.append(URLQueryItem(name: "display",
                                        value: "30"))
         queryItems.append(URLQueryItem(name: "sort",
