@@ -14,8 +14,7 @@ struct NetworkManager {
                                _ object: T.Type) -> AnyPublisher<Decodable, Error> {
         
         return Future { promise in
-            AF.request(url.url!,
-                       headers: url.headers)
+            AF.request(url)
             .responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let data):
