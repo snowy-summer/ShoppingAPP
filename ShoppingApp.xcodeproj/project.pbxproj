@@ -60,6 +60,11 @@
 		6BE741712C322D09009DEE99 /* QueryOfNaverShopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE741702C322D09009DEE99 /* QueryOfNaverShopping.swift */; };
 		6BE741AE2C3391D5009DEE99 /* ErrorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE741AD2C3391D5009DEE99 /* ErrorDTO.swift */; };
 		6BE741B02C339282009DEE99 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE741AF2C339282009DEE99 /* NetworkError.swift */; };
+		6BED00512C3A6400002F3447 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6BED00502C3A6400002F3447 /* RealmSwift */; };
+		6BED00542C3A643B002F3447 /* LikeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED00532C3A643B002F3447 /* LikeListViewController.swift */; };
+		6BED00562C3A699A002F3447 /* LikeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED00552C3A699A002F3447 /* LikeListViewModel.swift */; };
+		6BED00582C3A6A02002F3447 /* DataBaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED00572C3A6A02002F3447 /* DataBaseManager.swift */; };
+		6BED005A2C3A6A18002F3447 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BED00592C3A6A18002F3447 /* LikeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +119,10 @@
 		6BE741702C322D09009DEE99 /* QueryOfNaverShopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryOfNaverShopping.swift; sourceTree = "<group>"; };
 		6BE741AD2C3391D5009DEE99 /* ErrorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDTO.swift; sourceTree = "<group>"; };
 		6BE741AF2C339282009DEE99 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		6BED00532C3A643B002F3447 /* LikeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewController.swift; sourceTree = "<group>"; };
+		6BED00552C3A699A002F3447 /* LikeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeListViewModel.swift; sourceTree = "<group>"; };
+		6BED00572C3A6A02002F3447 /* DataBaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseManager.swift; sourceTree = "<group>"; };
+		6BED00592C3A6A18002F3447 /* LikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +133,7 @@
 				6B44AACC2C212E4C0079C7C2 /* Kingfisher in Frameworks */,
 				6B44AACF2C212E550079C7C2 /* Alamofire in Frameworks */,
 				6B44AAC62C212E400079C7C2 /* SnapKit in Frameworks */,
+				6BED00512C3A6400002F3447 /* RealmSwift in Frameworks */,
 				6B44AAC92C212E460079C7C2 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +205,7 @@
 			children = (
 				6B1819772C1BCA2C009B0236 /* UserData.swift */,
 				6B1819792C1BCE83009B0236 /* NicknameChecker.swift */,
+				6BED00572C3A6A02002F3447 /* DataBaseManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -267,6 +278,7 @@
 			children = (
 				6B18198E2C1C2CD8009B0236 /* TabBarController.swift */,
 				6B1819852C1C062D009B0236 /* MainVC */,
+				6BED00522C3A6415002F3447 /* LikeVC */,
 				6B1819902C1C2E1F009B0236 /* SettingVC */,
 			);
 			path = TabBar;
@@ -348,6 +360,16 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		6BED00522C3A6415002F3447 /* LikeVC */ = {
+			isa = PBXGroup;
+			children = (
+				6BED00532C3A643B002F3447 /* LikeListViewController.swift */,
+				6BED00552C3A699A002F3447 /* LikeListViewModel.swift */,
+				6BED00592C3A6A18002F3447 /* LikeModel.swift */,
+			);
+			path = LikeVC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -369,6 +391,7 @@
 				6B44AAC82C212E460079C7C2 /* IQKeyboardManagerSwift */,
 				6B44AACB2C212E4C0079C7C2 /* Kingfisher */,
 				6B44AACE2C212E550079C7C2 /* Alamofire */,
+				6BED00502C3A6400002F3447 /* RealmSwift */,
 			);
 			productName = ShoppingApp;
 			productReference = 6B18193F2C1AEB0F009B0236 /* ShoppingApp.app */;
@@ -403,6 +426,7 @@
 				6B44AAC72C212E460079C7C2 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				6B44AACA2C212E4C0079C7C2 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				6B44AACD2C212E550079C7C2 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				6BED004F2C3A6400002F3447 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 6B1819402C1AEB0F009B0236 /* Products */;
 			projectDirPath = "";
@@ -445,6 +469,7 @@
 				6B18197E2C1BFEED009B0236 /* SelectProfileViewController.swift in Sources */,
 				6B1819712C1B39A1009B0236 /* ProfileView.swift in Sources */,
 				6BE741AE2C3391D5009DEE99 /* ErrorDTO.swift in Sources */,
+				6BED005A2C3A6A18002F3447 /* LikeModel.swift in Sources */,
 				6B18198A2C1C0690009B0236 /* ImageCollectionViewCell.swift in Sources */,
 				6B1819992C1D5575009B0236 /* RecordListHeaderView.swift in Sources */,
 				6B3E4D672C1EB12500C0C4A6 /* WebViewModel.swift in Sources */,
@@ -455,6 +480,7 @@
 				6B1819AA2C1D9182009B0236 /* SearchFilterCollectionViewCell.swift in Sources */,
 				6B1819472C1AEB0F009B0236 /* OnboardingViewController.swift in Sources */,
 				6B1819B72C1DCE65009B0236 /* UILabel+Extension.swift in Sources */,
+				6BED00562C3A699A002F3447 /* LikeListViewModel.swift in Sources */,
 				6B18196D2C1B271C009B0236 /* ProfileType.swift in Sources */,
 				6B1819B02C1DAFA6009B0236 /* SearchResultSections.swift in Sources */,
 				6B3E4D692C1EBD6C00C0C4A6 /* String+Extension.swift in Sources */,
@@ -469,9 +495,11 @@
 				6B1819822C1C0576009B0236 /* Identifier+Extension.swift in Sources */,
 				6B1819B22C1DC366009B0236 /* SearchResultHeaderView.swift in Sources */,
 				6B1819A62C1D7DAF009B0236 /* SearchViewModel.swift in Sources */,
+				6BED00542C3A643B002F3447 /* LikeListViewController.swift in Sources */,
 				6B18199B2C1D623B009B0236 /* SearchResultViewController.swift in Sources */,
 				6B1819972C1C5B05009B0236 /* MainViewModel.swift in Sources */,
 				6B1819AC2C1D9E63009B0236 /* SearchFilterButtonState.swift in Sources */,
+				6BED00582C3A6A02002F3447 /* DataBaseManager.swift in Sources */,
 				6B3E4D6D2C1ECF4600C0C4A6 /* SettingNormalTableCell.swift in Sources */,
 				6BE741B02C339282009DEE99 /* NetworkError.swift in Sources */,
 				6B44AAD12C213A580079C7C2 /* NetworkManager.swift in Sources */,
@@ -735,6 +763,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		6BED004F2C3A6400002F3447 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -757,6 +793,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6B44AACD2C212E550079C7C2 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		6BED00502C3A6400002F3447 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6BED004F2C3A6400002F3447 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

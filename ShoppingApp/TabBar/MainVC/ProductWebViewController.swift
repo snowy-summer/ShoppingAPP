@@ -13,12 +13,34 @@ import SnapKit
 final class ProductWebViewController: UIViewController {
  
     private let webView = WKWebView()
-    private let viewModel: WebViewModel
+    private var viewModel: WebViewModel
     private var cancellables = Set<AnyCancellable>()
     
-    init(item: Item) {
-        self.viewModel = WebViewModel(item: item)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.viewModel = WebViewModel(item: Item(title: "",
+                                                 link: "",
+                                                 image: "",
+                                                 lprice: "",
+                                                 mallName: "",
+                                                 productId: ""))
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(item: Item) {
+        self.init(nibName: nil, bundle: nil)
+        self.viewModel = WebViewModel(item: item)
+    }
+    
+    convenience init(data: LikeModel) {
+        self.init(nibName: nil, bundle: nil)
+        let item = Item(title: data.title,
+                        link: data.link,
+                        image: data.imageString,
+                        lprice: data.lprice,
+                        mallName: data.mallName,
+                        productId: data.productId)
+        
+        viewModel = WebViewModel(item: item)
     }
     
     required init?(coder: NSCoder) {

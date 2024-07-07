@@ -79,6 +79,17 @@ extension SearchResultCollectionViewCell {
         }
     }
     
+    func updateLikeContent(data: LikeModel) {
+        
+        thumbnailImageView.kf.setImage( with: URL(string: data.imageString),
+                                        placeholder: nil,
+                                        options: nil,
+                                        progressBlock: nil)
+        titleLabel.text = data.title
+        configureLikeButton(isLiked: data.isLike)
+        
+    }
+    
     private func getIndexPath() -> IndexPath? {
             guard let collectionView = self.superview as? UICollectionView else {
                 return nil

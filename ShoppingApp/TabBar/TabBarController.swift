@@ -21,13 +21,19 @@ final class TabBarController: UITabBarController {
                                                            image: UIImage(systemName: IconType.searchTabBarIcon.iconString),
                                                            tag: 0)
         
+        let likeViewController = LikeListViewController()
+        let likeNavigationController = UINavigationController(rootViewController: likeViewController)
+        likeNavigationController.tabBarItem = UITabBarItem(title: "좋아요",
+                                                              image: UIImage(systemName: IconType.settingTabBarIcon.iconString),
+                                                              tag: 1)
+        
         let settingViewController = SettingViewController()
         let settingNavigationController = UINavigationController(rootViewController: settingViewController)
         settingNavigationController.tabBarItem = UITabBarItem(title: "설정",
                                                               image: UIImage(systemName: IconType.settingTabBarIcon.iconString),
-                                                              tag: 1)
+                                                              tag: 2)
         
-        setViewControllers([mainNavigationController, settingNavigationController],
+        setViewControllers([mainNavigationController,likeNavigationController, settingNavigationController],
                            animated: false)
     }
 }

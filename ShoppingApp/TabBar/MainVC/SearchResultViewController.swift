@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import RealmSwift
 import SnapKit
 
 final class SearchResultViewController: UIViewController {
@@ -154,6 +155,25 @@ extension SearchResultViewController: SearchResultCollectionViewCellDelegate {
         
         let data = searchViewModel.shoppingList.items[indexPath.row]
         searchViewModel.changeLike(productId: data.productId)
+    
+        let likeModel = DataBaseManager.shared.read(LikeModel.self).where {
+            $0.productId == data.productId
+        }
+        if likeModel.isEmpty {
+            
+            DataBaseManager.shared.add(LikeModel(productId: data.productId,
+                                                 isLike: true,
+                                                 title: data.title,
+                                                 link: data.link,
+                                                 imageString: data.image,
+                                                 lprice: data.lprice,
+                                                 mallName: data.mallName))
+        } else {
+            
+            DataBaseManager.shared.update(likeModel.first!) { likeModel in
+                likeModel.isLike.toggle()
+            }
+        }
         searchResultCollectionView.reloadItems(at: [indexPath])
     }
     
