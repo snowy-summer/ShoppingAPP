@@ -8,12 +8,12 @@
 import Foundation
 
 enum ProfileSettingViewControllerType {
-    case first
+    case create
     case setting
     
     var navigationTitle: String {
         switch self {
-        case .first:
+        case .create:
             return "PROFILE SETTING"
             
         case .setting:

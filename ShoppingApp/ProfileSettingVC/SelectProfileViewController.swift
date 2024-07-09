@@ -90,7 +90,7 @@ extension SelectProfileViewController: UICollectionViewDelegate, UICollectionVie
                         didSelectItemAt indexPath: IndexPath) {
         
         let imageString = Profile.allCases[indexPath.row].rawValue
-        profileViewModel.updateImageString(imageString)
+        profileViewModel.imageString = imageString
         
     }
     

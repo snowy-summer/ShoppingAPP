@@ -56,13 +56,21 @@ extension ProfileSettingViewController {
     
     private func binding() {
         
-        profileViewModel.$imageString
+        profileViewModel.$outputImageName
             .sink { [weak self] newValue in
                 guard let self = self else { return }
-                
-                profileView.updateProfileImage(named: newValue)
+                if let newValue = newValue {
+                    profileView.updateProfileImage(named: newValue)
+                }
             }.store(in: &cancellables)
         
+        profileViewModel.$outputPopViewController
+            .sink { [weak self] newValue in
+                guard let self = self else { return }
+                if let newValue = newValue {
+                   
+                }
+            }.store(in: &cancellables)
     }
     
     @objc private func pushSelectProfileVC() {
@@ -72,7 +80,7 @@ extension ProfileSettingViewController {
     
     @objc private func popVC() {
         switch profileViewModel.type {
-        case .first:
+        case .create:
             UserData.data.resetData()
         case .setting:
             break
@@ -83,34 +91,32 @@ extension ProfileSettingViewController {
     
     @objc private func saveProfile() {
         
-        guard let nickname = inputNicknameView.nicknameTextField.text else { return }
+        profileViewModel.nicknameWhenSaveProfileTapped = inputNicknameView.nicknameTextField.text
         
-        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
-            profileViewModel.updateNickname(nickname)
-            navigationController?.popViewController(animated: true)
-        }
+        navigationController?.popViewController(animated: true)
         
     }
     
     @objc private func completeButtonClicked() {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-        let date = formatter.string(from: Date())
-        
-        UserData.data.signUpDate = date + " 가입"
-        
-        guard let nickname = inputNicknameView.nicknameTextField.text else { return }
-        
-        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
-            profileViewModel.updateNickname(nickname)
+        profileViewModel.nickNameWhenCompleteButtonClicked = inputNicknameView.nicknameTextField.text
+//
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy. MM. dd"
+//        let date = formatter.string(from: Date())
+//        
+//        UserData.data.signUpDate = date + " 가입"
+//        
+//        guard let nickname = inputNicknameView.nicknameTextField.text else { return }
+//        
+//        if NicknameChecker.resultOfNickname(name: nickname) == NicknameState.success {
+//            profileViewModel.updateNickname(nickname)
             
             let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
             let sceneDelegate = windowScene?.delegate as? SceneDelegate
             sceneDelegate?.window?.rootViewController = TabBarController()
             sceneDelegate?.window?.makeKeyAndVisible()
             
-        }
+//        }
     }
 }
 
@@ -133,7 +139,7 @@ extension ProfileSettingViewController {
             saveViewControllerItem.tintColor = .title
             
             navigationItem.rightBarButtonItem = saveViewControllerItem
-        case .first:
+        case .create:
             return
         }
         
@@ -171,7 +177,7 @@ extension ProfileSettingViewController {
         profileView.addGestureRecognizer(tapProfileView)
         
         completeButton.addTarget(self,
-                                 action: #selector(completeButtonClicked),
+                                 action: #selector(nickNameWhenCompleteButtonClicked),
                                  for: .touchUpInside)
     }
     
@@ -181,12 +187,12 @@ extension ProfileSettingViewController {
             
             if let randomImageCase = Profile.allCases.randomElement() {
                 
-                profileViewModel.updateImageString(randomImageCase.rawValue)
+                profileViewModel.imageString = randomImageCase.rawValue
             }
             return
         }
         
-        profileViewModel.updateImageString(imageString)
+        profileViewModel.imageString = imageString
     }
     
     private func configureLayout() {
